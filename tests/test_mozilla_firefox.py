@@ -1163,7 +1163,7 @@ class TestMozillaFirefox:
         count_goods = shop.get_quantity_goods_in_cart()
         assert int(count_goods) <= MAX_QUANTITY, \
             f"В корзину добавляется больше {MAX_QUANTITY} единиц товара"
-        logger.info("В корзину добавляется не более 100 единиц товара")
+        logger.info(f"В корзину добавляется не более {MAX_QUANTITY} единиц товара")
 
     # Тест-кейс 28: Проверка добавления товаров на стоимость больше максимальной
     def test_more_max_total(self, driver_mozilla_firefox,

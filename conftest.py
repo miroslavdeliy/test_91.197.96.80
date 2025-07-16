@@ -1,12 +1,13 @@
 import pytest
+
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
-from pageobjects.authorization_page import AuthorizationPage
 from constants import (
     BASE_URL, USER_LOGIN, USER_PASSWORD,
     ADMIN_LOGIN, ADMIN_PASSWORD
 )
+from pageobjects.authorization_page import AuthorizationPage
 
 @pytest.fixture(scope="function")
 def driver_mozilla_firefox():
