@@ -33,18 +33,8 @@ def user_authorization_mozilla_firefox(driver_mozilla_firefox):
     driver = driver_mozilla_firefox
     auth_page = AuthorizationPage(driver)
 
-    try:
-        auth_page.enter_username(USER_LOGIN)
-        auth_page.enter_password(USER_PASSWORD)
-        auth_page.submit()
-
-        yield
-
-    except Exception as e:
-        driver.save_screenshot("auth_failure.png")
-        current_url = driver.current_url
-        print(f"Ошибка авторизации. URL после submit: {current_url}")
-        raise e
+    # Авторизация
+    auth_page.login(USER_LOGIN, USER_PASSWORD)
 
 
 # Авторизация админа в Mozilla Firefox
@@ -54,15 +44,4 @@ def admin_authorization_mozilla_firefox(driver_mozilla_firefox):
     driver = driver_mozilla_firefox
     auth_page = AuthorizationPage(driver)
 
-    try:
-        auth_page.enter_username(ADMIN_LOGIN)
-        auth_page.enter_password(ADMIN_PASSWORD)
-        auth_page.submit()
-
-        yield
-
-    except Exception as e:
-        driver.save_screenshot("auth_failure.png")
-        current_url = driver.current_url
-        print(f"Ошибка авторизации. URL после submit: {current_url}")
-        raise e
+    auth_page.login(ADMIN_LOGIN, ADMIN_PASSWORD)

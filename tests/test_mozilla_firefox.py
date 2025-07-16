@@ -50,7 +50,7 @@ class TestMozillaFirefox:
         driver = driver_mozilla_firefox
         shop = ShopPage(driver)
 
-        logger.info("\nТест-кейс 1: Проверка входа пользователя"
+        logger.info("Тест-кейс 1: Проверка входа пользователя"
                     "с корректными данными")
 
         # Проверка корректной авторизации пользователя
@@ -63,7 +63,7 @@ class TestMozillaFirefox:
         driver = driver_mozilla_firefox
         shop = ShopPage(driver)
 
-        logger.info("\nТест-кейс 2: Проверка входа администратора"
+        logger.info("Тест-кейс 2: Проверка входа администратора"
                     "с корректными данными")
 
         # Проверка корректной авторизации Администратора
@@ -115,7 +115,7 @@ class TestMozillaFirefox:
         menu = MenuPage(driver)
         cart = CartPage(driver)
 
-        logger.info("\nТест-кейс 4: Проверка перехода в раздел"
+        logger.info("Тест-кейс 4: Проверка перехода в раздел"
                     "'Корзинка' без перезагрузки")
 
         # Засекаем время загрузки страницы ДО перехода
@@ -159,7 +159,7 @@ class TestMozillaFirefox:
         menu = MenuPage(driver)
         shop = ShopPage(driver)
 
-        logger.info("\nТест-кейс 5: Проверка перехода в раздел 'Магазин'"
+        logger.info("Тест-кейс 5: Проверка перехода в раздел 'Магазин'"
                     "без перезагрузки")
 
         # Засекаем время загрузки страницы ДО перехода
@@ -203,7 +203,7 @@ class TestMozillaFirefox:
         menu = MenuPage(driver)
         auth = AuthorizationPage(driver)
 
-        logger.info("\nТест-кейс 6: Проверка кнопки 'Выход' без перезагрузки")
+        logger.info("Тест-кейс 6: Проверка кнопки 'Выход' без перезагрузки")
 
         # Засекаем время загрузки страницы ДО выхода
         initial_load_time = driver.execute_script(
@@ -246,7 +246,7 @@ class TestMozillaFirefox:
         menu = MenuPage(driver)
         edit = EditGoodsPage(driver)
 
-        logger.info("\nТест-кейс 7: Проверка перехода администратора в"
+        logger.info("Тест-кейс 7: Проверка перехода администратора в"
                     "'Редактирование: Товары'")
 
         # Засекаем время загрузки страницы
@@ -290,7 +290,7 @@ class TestMozillaFirefox:
         driver = driver_mozilla_firefox
         shop = ShopPage(driver)
 
-        logger.info("\nТест-кейс 8: Проверка отображения карточки товара")
+        logger.info("Тест-кейс 8: Проверка отображения карточки товара")
 
         # Сохраняем фактические значения карточки товара
         actual_name = shop.get_product_1_name().strip().lower()
@@ -300,7 +300,7 @@ class TestMozillaFirefox:
         # Подготовка ожидаемых значений
         expected_name = PRODUCT_1_NAME.lower()
         expected_description = PRODUCT_1_DESCRIPTION.lower()
-        expected_price = PRODUCT_1_DESCRIPTION.lower()
+        expected_price = PRODUCT_1_PRICE.lower()
 
         # Используем subtests — каждый текстовый элемент карточки товара
         # проверяется независимо
@@ -335,7 +335,7 @@ class TestMozillaFirefox:
         driver = driver_mozilla_firefox
         shop = ShopPage(driver)
 
-        logger.info("\nТест-кейс 9: Проверка работоспособности кнопок"
+        logger.info("Тест-кейс 9: Проверка работоспособности кнопок"
                     "изменения количества товара")
 
         # Получаем текущее количество (до добавления)
@@ -384,7 +384,7 @@ class TestMozillaFirefox:
         driver = driver_mozilla_firefox
         shop = ShopPage(driver)
 
-        logger.info("\nТест-кейс 10: Проверка отображения товаров в корзине")
+        logger.info("Тест-кейс 10: Проверка отображения товаров в корзине")
 
         # Сохраняем текущее количество товара в корзине
         quantity_before = int(shop.get_quantity_goods_in_cart())
@@ -431,7 +431,7 @@ class TestMozillaFirefox:
         shop = ShopPage(driver)
         cart = CartPage(driver)
 
-        logger.info("\nТест-кейс 11: Проверка корректного отображения товаров "
+        logger.info("Тест-кейс 11: Проверка корректного отображения товаров "
                     "в корзине")
 
         # Добавляем товар в корзину
