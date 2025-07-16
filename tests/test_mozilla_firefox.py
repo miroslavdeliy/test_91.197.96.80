@@ -6,7 +6,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from conftest import (driver_mozilla_firefox,
-                      user_authorization_mozilla_firefox)
+                      user_authorization_mozilla_firefox,
+                      admin_authorization_mozilla_firefox)
 from constants import (BASE_URL, MENU_CART, MENU_SHOP, MENU_LOGOUT,
                        CART_HEADER_TEXT, AUTH_HEADER_TEXT,
                        EDIT_GOODS_HEADER_TEXT, PRODUCT_1_NAME,
@@ -1079,7 +1080,7 @@ class TestMozillaFirefox:
         edit_product.clear_and_enter_description(EDITED_GOOD_DESCRIPTION)
         edit_product.clear_and_enter_category(EDITED_GOOD_CATEGORY)
         edit_product.clear_and_enter_price(EDITED_GOOD_PRICE)
-        edit_product.cleat_and_enter_url(EDITED_GOOD_IMAGE_URL)
+        edit_product.clear_and_enter_url(EDITED_GOOD_IMAGE_URL)
 
         # Сохранить изменения
         edit_product.edit_product()

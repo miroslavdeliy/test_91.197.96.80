@@ -12,7 +12,7 @@ class AuthorizationPage:
         self.username_input = (By.XPATH, "//*[@id='app']//form/div[1]/input")
         self.password_input = (By.XPATH, "//*[@id='app']//form/div[2]/input")
         self.login_button = (By.XPATH, "//*[@id='app']//form/div[3]/button")
-        self.auth_header = (By.XPATH, "//*[@id='app']//div[@class='text-h5 font-weight-bold']")
+        self.auth_header = (By.XPATH, "//*[@id='app']/div/div/div[1]/div")
 
     # Функция ожидания с повторной попыткой при TimeoutException
     def _wait_until(self, condition, retries=1, timeout=5):
