@@ -1,8 +1,14 @@
 BASE_URL = "http://91.197.96.80/"
 
 # --- Авторизация ---
-USER_LOGIN = "покупатель1"
-USER_PASSWORD = "покупатель1"
+USER_LOGIN_1 = "покупатель1"
+USER_PASSWORD_1 = "покупатель1"
+USER_LOGIN_2 = "покупатель2"
+USER_PASSWORD_2 = "покупатель2"
+USER_LOGIN_3 = "покупатель3"
+USER_PASSWORD_3 = "покупатель3"
+USER_LOGIN_4 = "покупатель4"
+USER_PASSWORD_4 = "покупатель4"
 ADMIN_LOGIN = "admin"
 ADMIN_PASSWORD = "admin"
 

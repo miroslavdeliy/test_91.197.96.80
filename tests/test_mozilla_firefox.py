@@ -1,15 +1,14 @@
 import logging
+import pytest
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from conftest import (driver_mozilla_firefox,
-                      user_authorization_mozilla_firefox,
-                      admin_authorization_mozilla_firefox)
-from constants import (BASE_URL, MENU_CART, MENU_SHOP, MENU_LOGOUT,
-                       CART_HEADER_TEXT, AUTH_HEADER_TEXT,
+from conftest import driver, user_authorization, admin_authorization
+from constants import (BASE_URL, MENU_CART, MENU_SHOP,
+                       MENU_LOGOUT, CART_HEADER_TEXT, AUTH_HEADER_TEXT,
                        EDIT_GOODS_HEADER_TEXT, PRODUCT_1_NAME,
                        PRODUCT_1_DESCRIPTION, PRODUCT_1_PRICE,
                        EMPTY_CART_MESSAGE, MAKE_ORDER_HEADER_TEXT,
@@ -36,32 +35,25 @@ from pageobjects.make_order_page import MakeOrderPage
 from pageobjects.menu_page import MenuPage
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-handler = logging.StreamHandler()
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-handler.setFormatter(formatter)
-logger.addHandler(handler)
 
 
 class TestMozillaFirefox:
     # --- Авторизация ---
     # Тест-кейс 1: Проверка авторизации пользователя с корректными данными
-    def test_successful_user_login(self, driver_mozilla_firefox,
-                                   user_authorization_mozilla_firefox):
-        driver = driver_mozilla_firefox
+    @pytest.mark.parametrize("browser_name", ["firefox", "chrome", "edge"])
+    def test_user_authorization(self, driver, user_authorization, browser_name):
         shop = ShopPage(driver)
 
         logger.info("Тест-кейс 1: Проверка входа пользователя"
                     "с корректными данными")
 
-        # Проверка корректной авторизации пользователя
+        # Проверка корректной авторизации Администратора
         assert_login_successful(shop, role="Пользователь")
         logger.info("Авторизация пользователя успешна")
 
     # Тест-кейс 2: Проверка авторизации профиля администратора
-    def test_admin_authorization(self, driver_mozilla_firefox,
-                                 admin_authorization_mozilla_firefox):
-        driver = driver_mozilla_firefox
+    @pytest.mark.parametrize("browser_name", ["firefox", "chrome", "edge"])
+    def test_admin_authorization(self, driver, admin_authorization, browser_name):
         shop = ShopPage(driver)
 
         logger.info("Тест-кейс 2: Проверка входа администратора"
@@ -73,9 +65,8 @@ class TestMozillaFirefox:
 
     # --- Переход по страницам сайта без перезагрузки ---
     # Тест-кейс 3: Проверка наличия пунктов меню (с использованием subtests)
-    def test_menu_visibility(self, subtests, driver_mozilla_firefox,
-                             user_authorization_mozilla_firefox):
-        driver = driver_mozilla_firefox
+    @pytest.mark.parametrize("browser_name", ["firefox", "chrome", "edge"])
+    def test_menu_visibility(self, subtests, driver, user_authorization, browser_name):
         menu = MenuPage(driver)
 
         logger.info("\nТест-кейс 3: Проверка наличия пунктов меню")

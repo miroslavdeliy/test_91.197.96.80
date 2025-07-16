@@ -3,6 +3,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
+from constants import BASE_URL
+
 class AuthorizationPage:
     def __init__(self, driver):
         self.driver = driver
