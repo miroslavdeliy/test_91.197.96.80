@@ -1,4 +1,5 @@
-from selenium.common import ElementNotInteractableException, TimeoutException
+from selenium.common import TimeoutException, ElementClickInterceptedException
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -32,13 +33,16 @@ class MakeGoodPage:
         field = self._wait_until(EC.visibility_of_element_located(locator))
         field.send_keys(value)
 
+    # Проскроллить до кнопки и ожидание кликабельности
     def _click_with_scroll(self, locator):
         element = self._wait_until(EC.presence_of_element_located(locator))
-        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
-        self._wait_until(EC.element_to_be_clickable(locator))
+        self.driver.execute_script(
+            "arguments[0].scrollIntoView({block: 'center'});", element)
         try:
-            element.click()
-        except ElementNotInteractableException:
+            # Пробуем кликнуть через ActionChains (имитация реального клика)
+            ActionChains(self.driver).move_to_element(element).click().perform()
+        except Exception:
+            # Если не вышло — JS в помощь
             self.driver.execute_script("arguments[0].click();", element)
 
     def back_goods(self):

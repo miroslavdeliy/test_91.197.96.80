@@ -18,7 +18,8 @@ class EditGoodsPage:
         self.category = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/div[2]/div[2]/div/div")
         self.price = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/div[2]/div[3]/div/div")
         self.image = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/div[1]/img")
-        self.edit_product_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/div[3]/a/button/span")
+        self.edit_product_1_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[1]/div[3]/a/button/span")
+        self.edit_product_5_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/div[3]/a/button/span")
         self.delete_product_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/div[4]/button/span")
 
     def _wait_until(self, condition, retries=1, timeout=5):
@@ -66,9 +67,14 @@ class EditGoodsPage:
             EC.visibility_of_element_located(self.image)
         ).get_attribute("src")
 
-    def open_edit_product(self):
+    def open_edit_product_1(self):
         self._wait_until(
-            EC.element_to_be_clickable(self.edit_product_button)
+            EC.element_to_be_clickable(self.edit_product_1_button)
+        ).click()
+
+    def open_edit_product_5(self):
+        self._wait_until(
+            EC.element_to_be_clickable(self.edit_product_5_button)
         ).click()
 
     def delete_product(self):

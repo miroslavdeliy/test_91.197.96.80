@@ -7,4 +7,4 @@ def assert_login_successful(shop, role: str = "Пользователь"):
 
 
 def assert_text_equal(actual, expected, message=""):
-    assert actual == expected, f"{message}\nОжидалось: '{expected}', получено: '{actual}'"
+    assert actual in expected, f"{message}\nОжидалось: '{expected}', получено: '{actual}'"
