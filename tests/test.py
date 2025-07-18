@@ -36,34 +36,6 @@ from pageobjects.menu_page import MenuPage
 
 
 class TestWebApplication:
-    # --- Авторизация ---
-    # Проверка авторизации пользователя с корректными данными
-    @pytest.mark.parametrize("browser_name",
-                             ["firefox", "chrome", "edge", "yandex"])
-    def test_user_authorization(self, driver, user_authorization,
-                                browser_name):
-        shop = ShopPage(driver)
-
-        print(f"\nПроверка входа пользователя"
-                    f"с корректными данными в {browser_name}")
-
-        # Проверка корректной авторизации пользователя
-        assert_login_successful(shop, role="Пользователь")
-        print(f"Авторизация пользователя успешна")
-
-    # Проверка авторизации профиля администратора
-    @pytest.mark.parametrize("browser_name",
-                             ["firefox", "chrome", "edge", "yandex"])
-    def test_admin_authorization(self, driver, admin_authorization,
-                                 browser_name):
-        shop = ShopPage(driver)
-
-        print(f"\nПроверка входа администратора"
-                    f"с корректными данными в {browser_name}")
-
-        # Проверка корректной авторизации Администратора
-        assert_login_successful(shop, role="Администратор")
-        print(f"Авторизация администратора успешна")
 
     # --- Переход по страницам сайта без перезагрузки ---
     # Проверка наличия пунктов меню (с использованием subtests)

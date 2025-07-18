@@ -1,3 +1,4 @@
+import allure
 import os
 import pytest
 
@@ -16,10 +17,33 @@ from constants import (BASE_URL, USER_LOGIN_1, USER_LOGIN_2, USER_LOGIN_3,
 from pageobjects.authorization_page import AuthorizationPage
 
 
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    result = outcome.get_result()
+
+    if result.when == "call" and result.failed:
+        driver = item.funcargs.get("driver")
+        if driver:
+            # Скриншот
+            try:
+                allure.attach(driver.get_screenshot_as_png(),
+                              name="screenshot_on_failure",
+                              attachment_type=allure.attachment_type.PNG)
+            except Exception as e:
+                print(f"Не удалось сделать скриншот: {e}")
+
+            # HTML
+            try:
+                allure.attach(driver.page_source,
+                              name="page_source",
+                              attachment_type=allure.attachment_type.HTML)
+            except Exception as e:
+                print(f"Не удалось получить HTML: {e}")
+
+
 @pytest.fixture
 def driver(browser_name):
-    driver = None
-
     if browser_name == "chrome":
         options = ChromeOptions()
         service = ChromeService()
@@ -47,7 +71,7 @@ def driver(browser_name):
         driver = webdriver.Chrome(service=service, options=options)
 
     else:
-        raise ValueError(f"Unsupported browser: {browser_name}")
+        raise ValueError(f"Неподдерживаемый браузер: {browser_name}")
 
     driver.maximize_window()
     driver.get(BASE_URL)
@@ -58,17 +82,19 @@ def driver(browser_name):
 @pytest.fixture(scope="function")
 def user_authorization(driver, browser_name):
     auth_page = AuthorizationPage(driver)
-    if browser_name == "firefox":
-        auth_page.login(USER_LOGIN_1, USER_PASSWORD_1)
-    elif browser_name == "chrome":
-        auth_page.login(USER_LOGIN_2, USER_PASSWORD_2)
-    elif browser_name == "edge":
-        auth_page.login(USER_LOGIN_3, USER_PASSWORD_3)
-    elif browser_name == "yandex":
-        auth_page.login(USER_LOGIN_4, USER_PASSWORD_4)
+    with allure.step(f"Авторизация пользователя в {browser_name}"):
+        if browser_name == "firefox":
+            auth_page.login(USER_LOGIN_1, USER_PASSWORD_1)
+        elif browser_name == "chrome":
+            auth_page.login(USER_LOGIN_2, USER_PASSWORD_2)
+        elif browser_name == "edge":
+            auth_page.login(USER_LOGIN_3, USER_PASSWORD_3)
+        elif browser_name == "yandex":
+            auth_page.login(USER_LOGIN_4, USER_PASSWORD_4)
 
 # Авторизация админа
 @pytest.fixture(scope="function")
 def admin_authorization(driver):
     auth_page = AuthorizationPage(driver)
-    auth_page.login(ADMIN_LOGIN, ADMIN_PASSWORD)
+    with allure.step("Авторизация администратора"):
+        auth_page.login(ADMIN_LOGIN, ADMIN_PASSWORD)
