@@ -14,7 +14,7 @@ ADMIN_PASSWORD = "admin"
 
 # --- Тексты заголовков ---
 SHOP_HEADER_TEXT = "магазин"
-PRODUCTS_HEADER_TEXT = "продукты"
+SHOP_TITLE_TEXT = "продукты"
 CART_HEADER_TEXT = "корзинка"
 EDIT_GOODS_HEADER_TEXT = "редактирование: товары"
 AUTH_HEADER_TEXT = "авторизация"

@@ -44,22 +44,22 @@ def pytest_runtest_makereport(item, call):
 
 @pytest.fixture
 def driver(browser_name):
-    if browser_name == "chrome":
+    if browser_name == "Google Chrome":
         options = ChromeOptions()
         service = ChromeService()
         driver = webdriver.Chrome(service=service, options=options)
 
-    elif browser_name == "firefox":
+    elif browser_name == "Mozilla Firefox":
         options = FirefoxOptions()
         service = FirefoxService()
         driver = webdriver.Firefox(service=service, options=options)
 
-    elif browser_name == "edge":
+    elif browser_name == "Microsoft Edge":
         options = EdgeOptions()
         service = EdgeService()
         driver = webdriver.Edge(service=service, options=options)
 
-    elif browser_name == "yandex":
+    elif browser_name == "Yandex Browser":
         driver_path = os.path.join(os.path.dirname(__file__), "yandexdriver.exe")
 
         # Путь к бинарнику Яндекс Браузера
@@ -83,13 +83,13 @@ def driver(browser_name):
 def user_authorization(driver, browser_name):
     auth_page = AuthorizationPage(driver)
     with allure.step(f"Авторизация пользователя в {browser_name}"):
-        if browser_name == "firefox":
+        if browser_name == "Mozilla Firefox":
             auth_page.login(USER_LOGIN_1, USER_PASSWORD_1)
-        elif browser_name == "chrome":
+        elif browser_name == "Google Chrome":
             auth_page.login(USER_LOGIN_2, USER_PASSWORD_2)
-        elif browser_name == "edge":
+        elif browser_name == "Microsoft Edge":
             auth_page.login(USER_LOGIN_3, USER_PASSWORD_3)
-        elif browser_name == "yandex":
+        elif browser_name == "Yandex Browser":
             auth_page.login(USER_LOGIN_4, USER_PASSWORD_4)
 
 # Авторизация админа
