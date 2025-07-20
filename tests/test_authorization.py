@@ -1,6 +1,8 @@
+# Импортирование библиотек
 import allure
 import pytest
 
+# Импортирование пользовательских библиотек
 from conftest import driver, user_authorization, admin_authorization
 from helpers.assertions import assert_login_successful
 from pageobjects.shop_page import ShopPage
@@ -9,7 +11,7 @@ from pageobjects.shop_page import ShopPage
 class TestAuthorization:
     # Проверка авторизации пользователя с корректными данными
     @allure.title("Проверка входа пользователя с корректными данными в"
-                  " ({browser_name})")
+                  " {browser_name}")
     @pytest.mark.parametrize("browser_name",
                              ["Mozilla Firefox", "Google Chrome",
                               "Microsoft Edge", "Yandex Browser"])
@@ -28,7 +30,7 @@ class TestAuthorization:
 
 
     @allure.title("Проверка входа администратора с корректными данными в "
-                  "({browser_name})")
+                  "{browser_name}")
     @pytest.mark.parametrize("browser_name",
                              ["Mozilla Firefox", "Google Chrome",
                               "Microsoft Edge", "Yandex Browser"])
