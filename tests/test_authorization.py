@@ -9,7 +9,6 @@ from pageobjects.shop_page import ShopPage
 
 
 class TestAuthorization:
-    # Проверка авторизации пользователя с корректными данными
     @allure.title("Проверка входа пользователя с корректными данными в"
                   " {browser_name}")
     @pytest.mark.parametrize("browser_name",
@@ -26,7 +25,9 @@ class TestAuthorization:
             assert_login_successful(shop, role="Пользователь")
 
         with allure.step("Завершение теста"):
-            print("Тест test_user_authorization завершён")
+            allure.attach("Авторизация успешна",
+                          name="End test",
+                          attachment_type=allure.attachment_type.TEXT)
 
 
     @allure.title("Проверка входа администратора с корректными данными в "
@@ -45,4 +46,6 @@ class TestAuthorization:
             assert_login_successful(shop, role="Администратор")
 
         with allure.step("Завершение теста"):
-            print("Тест test_admin_authorization завершён")
+            allure.attach("Авторизация успешна",
+                          name="End test",
+                          attachment_type=allure.attachment_type.TEXT)
