@@ -22,11 +22,11 @@ class EditGoodsPage:
         self.edit_product_5_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/div[3]/a/button/span")
         self.delete_product_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/div[4]/button/span")
 
-    def _wait_until(self, condition, retries=1, timeout=5):
+    def _wait_until(self, condition, retries=1):
         attempt = 0
         while attempt <= retries:
             try:
-                return WebDriverWait(self.driver, timeout).until(condition)
+                return self.wait.until(condition)
             except TimeoutException:
                 attempt += 1
                 if attempt > retries:

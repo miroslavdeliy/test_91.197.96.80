@@ -3,7 +3,7 @@ import allure
 import pytest
 
 # Импортирование пользовательских библиотек
-from conftest import driver, user_authorization
+from conftest import driver, user_authorization, admin_authorization
 from constants import (MENU_CART, MENU_SHOP,
                        MENU_LOGOUT, CART_HEADER_TEXT,
                        SHOP_TITLE_TEXT, AUTH_HEADER_TEXT,
@@ -243,7 +243,7 @@ class TestNavigatePagesWithoutReloading:
                           attachment_type=allure.attachment_type.TEXT)
 
         with allure.step("Открытие меню и нажать на 'Редактирование товаров'"):
-            menu.open_edit()
+            menu.open_menu()
             menu.open_edit()
 
         with allure.step("Проверка заголовка страницы редактирования товаров"):
