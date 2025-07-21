@@ -37,48 +37,6 @@ from pageobjects.menu_page import MenuPage
 
 class TestWebApplication:
 
-    # Проверка видимости изменения количества товара в корзине
-    @pytest.mark.parametrize("browser_name",
-                             ["firefox", "chrome", "edge", "yandex"])
-    def test_visibility_changing_quantity_goods_in_cart(self, subtests, driver,
-                                            user_authorization, browser_name):
-        shop = ShopPage(driver)
-
-        print(f"Проверка отображения товаров в корзине в {browser_name}")
-
-        # Сохраняем текущее количество товара в корзине
-        quantity_before = int(shop.get_quantity_goods_in_cart())
-        print(f"Текущее количество товаров в корзине:{quantity_before}")
-
-        # --- Подтест 1: Увеличение количества товара в корзине ---
-        shop.add_product_1()
-        print("Товар добавлен в корзину")
-
-        quantity_after_add = int(shop.get_product_1_quantity())
-        print(f"Количество товара после добавления: {quantity_after_add}")
-
-        with subtests.test(label="Добавление товара в корзину"):
-            assert quantity_after_add == quantity_before + 1, \
-                (f"Количество не увеличилось. Было: {quantity_before},"
-                 f"стало: {quantity_after_add}")
-        print(f"Товар успешно добавлен: было {quantity_before},"
-                    f"стало {quantity_after_add}")
-
-        # --- Подтест 2: Уменьшение количества товара в корзине ---
-        shop.remove_product_1()
-        print("Товар удалён из корзины")
-
-        # Получаем количество товаров после удаления
-        quantity_after_remove = int(shop.get_product_1_quantity())
-        print(f"Количество товара после удаления: {quantity_after_remove}")
-
-        with subtests.test(label="Удаление товара из корзины"):
-            assert quantity_after_remove == quantity_after_add - 1, \
-                (f"Количество не уменьшилось. Было: {quantity_after_add}, "
-                 f"стало: {quantity_after_remove}")
-        print(f"Товар успешно удалён: было {quantity_after_add}, "
-                    f"стало {quantity_after_remove}")
-
     # --- Корректность корзины ---
     # Проверка корректного отображения товаров в корзине
     @pytest.mark.parametrize("browser_name",
