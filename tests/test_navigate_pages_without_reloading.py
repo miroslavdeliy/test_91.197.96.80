@@ -59,9 +59,7 @@ class TestNavigatePagesWithoutReloading:
                         pass
 
         with allure.step("Завершение теста"):
-            allure.attach("В меню присутствует 'Магазин', 'Корзинка', 'Выход'",
-                          name="End test",
-                          attachment_type=allure.attachment_type.TEXT)
+            pass
 
     @allure.title("Переход в 'Корзинку' без перезагрузки страницы в "
                   "({browser_name})")

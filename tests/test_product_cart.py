@@ -58,10 +58,7 @@ class TestProductCart:
                 "Изображение товара не загружено (src-пустой)"
 
         with allure.step("Завершение теста"):
-            allure.attach("Название товара, описание, цена и "
-                          "изображение отображается корректно",
-                          name="End test",
-                          attachment_type=allure.attachment_type.TEXT)
+            pass
 
 
     @allure.title("Проверка изменения количества товара в {browser_name}")
@@ -123,10 +120,7 @@ class TestProductCart:
                      f" стало: {quantity_after_remove}")
 
         with allure.step("Завершение теста"):
-            allure.attach("Увеличение и уменьшение количество товара "
-                          "корректно меняет его количество",
-                          name="End test",
-                          attachment_type=allure.attachment_type.TEXT)
+            pass
 
 
     # Проверка видимости изменения количества товара в корзине
@@ -195,7 +189,4 @@ class TestProductCart:
                      f" стало: {quantity_after_remove}")
 
         with allure.step("Завершение теста"):
-            allure.attach("Увеличение и уменьшение количество товара "
-                          "корректно меняет его количество в корзине",
-                          name="End test",
-                          attachment_type=allure.attachment_type.TEXT)
+            pass
