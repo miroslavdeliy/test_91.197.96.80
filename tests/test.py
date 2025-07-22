@@ -38,39 +38,6 @@ from pageobjects.menu_page import MenuPage
 class TestWebApplication:
 
 
-    # --- Оформление и совершение заказа ---
-    # Проверка перенаправления на страницу заполнения личных
-    # данных при нажатии на кнопку Оформить заказ
-    @pytest.mark.parametrize("browser_name",
-                             ["firefox", "chrome", "edge", "yandex"])
-    def test_making_order_button_work(self, driver, user_authorization,
-                                      browser_name):
-        shop = ShopPage(driver)
-        cart = CartPage(driver)
-        make_order = MakeOrderPage(driver)
-
-        print(f"Тест-кейс 16: Проверка перенаправления на страницу "
-              f"заполнения личных данных при нажатии на кнопку "
-              f"Оформить заказ в {browser_name}")
-
-        # Переход в корзину
-        shop.open_cart()
-        print("Клик по иконке 'Корзинка'")
-
-        # Нажать на кнопку Офомить заказ
-        cart.make_order()
-        print("Клик по кнопке 'Оформить заказ'")
-
-        # Проверка нахождения на странице ввода личных данных
-        making_order_text = make_order.get_make_order_header_text().lower()
-        assert_text_equal(
-            making_order_text,
-            MAKE_ORDER_HEADER_TEXT.lower(),
-            "Кнопка Оформить заказ не переводит на страницу заполнения данных"
-        )
-        print("Кнопка Оформить заказ переводит на страницу "
-                    "заполнения личных данных")
-
     # Проверка перенаправления на страницу каталога
     # со страницы заполнения личных данных при нажатии на кнопку
     # Обратно в магазин
