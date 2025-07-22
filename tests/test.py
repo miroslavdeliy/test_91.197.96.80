@@ -36,35 +36,7 @@ from pageobjects.menu_page import MenuPage
 
 
 class TestWebApplication:
-    # Проверка активности кнопки Оформить заказ при непустой корзине
-    @pytest.mark.parametrize("browser_name",
-                             ["firefox", "chrome", "edge", "yandex"])
-    def test_make_order_button_enabled(self, driver, user_authorization,
-                                       browser_name):
-        shop = ShopPage(driver)
-        cart = CartPage(driver)
 
-        print(f"Проверка активности кнопки 'Оформить заказ' при непустой "
-              f"корзине в {browser_name}")
-
-        # Добавляем товар
-        shop.add_product_1()
-        print("Товар добавлен в корзину")
-
-        # Переход в корзину
-        shop.open_cart()
-        print("Клик по иконке 'Корзинка'")
-
-        # Проверяем доступность кнопки "Оформить заказ"
-        is_visible = cart.is_make_order_button_visible()
-        if is_visible:
-            print("Кнопка 'Оформить заказ' видна при непустой корзине")
-            is_enabled = cart.is_make_order_button_enabled()
-            assert is_enabled, ("Кнопка 'Оформить заказ' неактивна "
-                                "при непустой корзине")
-            print("Кнопка 'Оформить заказ' активна при непустой корзине")
-        else:
-            print("Кнопка 'Оформить заказ' не видима при пустой корзине")
 
     # --- Оформление и совершение заказа ---
     # Проверка перенаправления на страницу заполнения личных

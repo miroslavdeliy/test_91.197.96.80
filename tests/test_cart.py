@@ -3,9 +3,10 @@ import allure
 import pytest
 
 # Импортирование пользовательских библиотек
-from constants import (PRODUCT_1_NAME, PRODUCT_1_PRICE, EMPTY_CART_MESSAGE)
+from constants import (PRODUCT_1_NAME, PRODUCT_1_PRICE, EMPTY_CART_MESSAGE, MAKE_ORDER_HEADER_TEXT)
 from helpers.assertions import assert_text_equal
 from pageobjects.cart_page import CartPage
+from pageobjects.make_order_page import MakeOrderPage
 from pageobjects.shop_page import ShopPage
 
 
@@ -219,6 +220,38 @@ class TestCart:
             is_enabled = cart.is_make_order_button_enabled()
             assert is_enabled, ("Кнопка 'Оформить заказ' неактивна "
                                 "при непустой корзине")
+
+        with allure.step("Завершение теста"):
+            pass
+
+    @allure.title("Проверка работоспособности кнопки 'Оформить заказ' в"
+                  " {browser_name}")
+    @allure.description("Проверка, что в непустой корзине кнопка 'Оформить заказ'"
+                        " переводит на страницу заполнения личных данных")
+    @pytest.mark.parametrize("browser_name",
+                             ["Mozilla Firefox", "Google Chrome",
+                              "Microsoft Edge", "Yandex Browser"])
+    def test_making_order_button_work(self, driver, user_authorization,
+                                      browser_name):
+        allure.dynamic.parameter("Браузер", browser_name)
+        with allure.step("Открытие страницы и иницилизация объектов"):
+            shop = ShopPage(driver)
+            cart = CartPage(driver)
+            make_order = MakeOrderPage(driver)
+
+        with allure.step("Переход в корзину"):
+            shop.open_cart()
+
+        with allure.step("Нажать на кнопку 'Оформить заказ'"):
+            cart.make_order()
+
+        with allure.step("Проверка нахождения на странице заполнения личных данных"):
+            making_order_text = make_order.get_make_order_header_text().lower()
+            assert_text_equal(
+                making_order_text,
+                MAKE_ORDER_HEADER_TEXT.lower(),
+                "Кнопка Оформить заказ не переводит на страницу заполнения данных"
+            )
 
         with allure.step("Завершение теста"):
             pass
