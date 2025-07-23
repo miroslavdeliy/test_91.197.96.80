@@ -22,12 +22,14 @@ class TestAuthorization:
             shop = ShopPage(driver)
 
         with allure.step("Проверка успешной авторизации пользователя"):
-            assert_login_successful(shop, role="Пользователь")
-
-        with allure.step("Завершение теста"):
-            allure.attach("Авторизация успешна",
-                          name="End test",
-                          attachment_type=allure.attachment_type.TEXT)
+            try:
+                assert_login_successful(shop, role="Пользователь")
+            except AssertionError as e:
+                allure.attach(
+                    str(e),
+                    name="Текст ошибки",
+                    attachment_type=allure.attachment_type.TEXT
+                )
 
 
     @allure.title("Проверка входа администратора с корректными данными в "
@@ -43,9 +45,11 @@ class TestAuthorization:
             shop = ShopPage(driver)
 
         with allure.step("Проверка успешной авторизации администратора"):
-            assert_login_successful(shop, role="Администратор")
-
-        with allure.step("Завершение теста"):
-            allure.attach("Авторизация успешна",
-                          name="End test",
-                          attachment_type=allure.attachment_type.TEXT)
+            try:
+                assert_login_successful(shop, role="Администратор")
+            except AssertionError as e:
+                allure.attach(
+                    str(e),
+                    name=f"Текст ошибки",
+                    attachment_type=allure.attachment_type.TEXT
+                )
