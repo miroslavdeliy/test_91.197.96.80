@@ -18,23 +18,15 @@ class EditProductPage(BasePage):
 
     def _clear_and_send_keys(self, locator, value):
         input_element = self._get_element(locator, condition="visible")
+        self._wait_for_value_not_clear(input_element)
         input_element.click()
         input_element.send_keys(Keys.CONTROL + 'a')
         input_element.send_keys(Keys.BACKSPACE)
-        self._wait_for_value_to_clear(input_element)
         input_element.send_keys(value)
 
-    def _wait_for_value_to_clear(self, element, timeout=5):
+    def _wait_for_value_not_clear(self, element, timeout=5):
         from selenium.webdriver.support.ui import WebDriverWait
-        WebDriverWait(self.driver, timeout).until(lambda _: element.get_attribute("value") == "")
-
-    def _scroll_and_click(self, locator):
-        element = self._get_element(locator, condition="present")
-        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
-        try:
-            ActionChains(self.driver).move_to_element(element).click().perform()
-        except Exception:
-            self.driver.execute_script("arguments[0].click();", element)
+        WebDriverWait(self.driver, timeout).until(lambda _: element.get_attribute("value") != "")
 
     def clear_and_enter_name(self, name):
         self._clear_and_send_keys(self.name, name)

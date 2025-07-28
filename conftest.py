@@ -10,6 +10,7 @@ from selenium.webdriver.edge.service import Service as EdgeService
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.firefox.service import Service as FirefoxService
 
+
 from constants import (BASE_URL, USER_LOGIN_1, USER_LOGIN_2, USER_LOGIN_3,
                        USER_LOGIN_4, USER_PASSWORD_1, USER_PASSWORD_2,
                        USER_PASSWORD_3, USER_PASSWORD_4, ADMIN_LOGIN,
@@ -98,3 +99,25 @@ def admin_authorization(driver):
     auth_page = AuthorizationPage(driver)
     with allure.step("Авторизация администратора"):
         auth_page.login(ADMIN_LOGIN, ADMIN_PASSWORD)
+
+
+@pytest.fixture
+def mobile_driver():
+    chrome_options = ChromeOptions()
+    chrome_options.add_experimental_option("mobileEmulation", {
+        "deviceName": "iPhone X"
+    })
+    chrome_options.add_argument("--disable-notifications")
+    chrome_options.add_argument("--disable-popup-blocking")
+
+    driver = webdriver.Chrome(options=chrome_options)
+    driver.get(BASE_URL)
+    yield driver
+    driver.quit()
+
+
+@pytest.fixture(scope="function")
+def user_authorization_mobile(mobile_driver):
+    auth_page = AuthorizationPage(mobile_driver)
+    with allure.step(f"Авторизация пользователя мобильном режиме"):
+        auth_page.login(USER_LOGIN_1, USER_PASSWORD_1)
