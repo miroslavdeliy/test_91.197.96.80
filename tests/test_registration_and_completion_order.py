@@ -39,20 +39,12 @@ class TestRegistrationAndCompletionOrder:
             make_order.back_shop()
 
         with allure.step("Проверка нахождения в каталоге товаров"):
-            catalog_text = shop.get_shop_title_text().strip().lower()
-            try:
-                assert_text_equal(
-                    catalog_text,
-                    SHOP_TITLE_TEXT.lower(),
-                    "Кнопка Обратно в магазин не переводит на страницу каталога"
-                )
-            except AssertionError as e:
-                allure.attach(
-                    str(e),
-                    name=f"Текст ошибки",
-                    attachment_type=allure.attachment_type.TEXT
-                )
-                raise
+            catalog_text = shop.get_shop_title_text().lower()
+            assert_text_equal(
+                catalog_text,
+                SHOP_TITLE_TEXT.lower(),
+                "Кнопка Обратно в магазин не переводит на страницу каталога"
+            )
 
     @allure.title("Проверка работоспособности кнопки 'Оформить заказ' после"
               " заполнения личных данных в {browser_name}")
@@ -89,19 +81,11 @@ class TestRegistrationAndCompletionOrder:
         with allure.step("Проверка нахождения на странице подтверждения "
                          "заказа"):
             make_order_check = finish_order.get_finish_order_title().strip().lower()
-            try:
-                assert_text_equal(
-                    make_order_check,
-                    FINISH_ORDER_HEADER_TEXT.lower(),
-                    "Пользователь не попадает на страницу подтверждения заказа"
-                )
-            except AssertionError as e:
-                allure.attach(
-                    str(e),
-                    name=f"Текст ошибки",
-                    attachment_type=allure.attachment_type.TEXT
-                )
-                raise
+            assert_text_equal(
+                make_order_check,
+                FINISH_ORDER_HEADER_TEXT.lower(),
+                "Пользователь не попадает на страницу подтверждения заказа"
+            )
 
     @allure.title("Проверка работоспособности кнопки 'Обратно в магазин' "
                   "на странице подтверждения заказа {browser_name}")
@@ -139,20 +123,12 @@ class TestRegistrationAndCompletionOrder:
             finish_order.back_shop()
 
         with allure.step("Проверка нахождения на странице каталога товаров"):
-            catalog_text = shop.get_shop_title_text().strip().lower()
-            try:
-                assert_text_equal(
+            catalog_text = shop.get_shop_title_text().lower()
+            assert_text_equal(
                 catalog_text,
                 SHOP_TITLE_TEXT.lower(),
                 "Кнопка Обратно в магазин не переводит на страницу каталога"
             )
-            except AssertionError as e:
-                allure.attach(
-                    str(e),
-                    name=f"Текст ошибки",
-                    attachment_type=allure.attachment_type.TEXT
-                )
-                raise
 
     @allure.title("Проверка корректности данных на странице подтверждения заказа"
                   " в {browser_name}")
@@ -190,21 +166,15 @@ class TestRegistrationAndCompletionOrder:
             make_order.open_finish_order()
 
         with allure.step("Получаем данные со страницы подтверждения заказа"):
-            actual_name_product = (finish_order.get_finish_order_name_product()
-                                   .strip().lower())
-            actual_name = (finish_order.get_finish_order_name()
-                           .strip().lower())
-            actual_first_name = (finish_order.get_finish_order_first_name()
-                                 .strip().lower())
-            actual_finish_name = (finish_order.get_finish_order_last_name()
-                                  .strip().lower())
-            actual_address = (finish_order.get_finish_order_address()
-                              .strip().lower())
-            actual_card = (finish_order.get_finish_order_card_number()
-                           .strip().lower())
-            actual_quantity_goods = (finish_order.get_finish_order_quantity_goods()
-                                     .strip().lower())
+            actual_name_product = finish_order.get_finish_order_name_product().lower()
+            actual_name = finish_order.get_finish_order_name().lower()
+            actual_first_name = finish_order.get_finish_order_first_name().lower()
+            actual_finish_name = finish_order.get_finish_order_last_name().lower()
+            actual_address = finish_order.get_finish_order_address().lower()
+            actual_card = finish_order.get_finish_order_card_number().lower()
+            actual_quantity_goods = finish_order.get_finish_order_quantity_goods().lower()
 
+        with allure.step("Проверка текстовых данных"):
             # Подготавливаем ожидаемые значения
             expected_name_product = PRODUCT_1_NAME.lower()
             expected_name = f"имя: {TEST_USER_NAME}".lower()
@@ -212,8 +182,7 @@ class TestRegistrationAndCompletionOrder:
             expected_finish_name = f"отчество: {TEST_USER_LAST_NAME}".lower()
             expected_address = f"адрес доставки: {TEST_USER_ADDRESS}".lower()
             expected_card = f"номер карты: {TEST_USER_CARD}".lower()
-            expected_quantity_goods = (f"количество товаров: "
-                                       f"{quantity_goods_in_cart}")
+            expected_quantity_goods = f"количество товаров: {quantity_goods_in_cart}"
 
             data = [
                 ("Название товара", actual_name_product, expected_name_product,
@@ -230,7 +199,6 @@ class TestRegistrationAndCompletionOrder:
                  expected_quantity_goods, assert_text_equal),
             ]
 
-        with allure.step("Проверка текстовых данных"):
             for label, actual, expected, custom_assert in data:
                 with allure.step(f"Проверка {label}"):
                     with subtests.test(label=label):
@@ -238,15 +206,7 @@ class TestRegistrationAndCompletionOrder:
                                         attachment_type=allure.attachment_type.TEXT)
                         allure.attach(expected, name=f"Ожидаемое значение",
                                         attachment_type=allure.attachment_type.TEXT)
-                        try:
-                            custom_assert(actual, expected, f"{label} некорректно отображается")
-                        except AssertionError as e:
-                            allure.attach(
-                                str(e),
-                                name="Текст ошибки",
-                                attachment_type=allure.attachment_type.TEXT
-                            )
-                            raise
+                        custom_assert(actual, expected, f"{label} некорректно отображается")
 
         with allure.step("Проверка итоговой суммы"):
             total_order = float(finish_order.get_finish_order_total().split()[-2])
@@ -266,7 +226,7 @@ class TestRegistrationAndCompletionOrder:
                         name=f"Текст ошибки",
                         attachment_type=allure.attachment_type.TEXT
                     )
-                    raise
+                    assert False, str(e)
 
 
     @allure.title("Проверка успешного оформления заказа в {browser_name}")
@@ -305,16 +265,8 @@ class TestRegistrationAndCompletionOrder:
 
         with allure.step("Проверка успешного оформления заказа"):
             good_order_text = good_order.get_good_order_page_title().strip().lower()
-            try:
-                assert_text_equal(
-                    good_order_text,
-                    GOOD_ORDER_SUCCESS_TEXT.lower(),
-                    "Заказ не оформляется"
-                )
-            except AssertionError as e:
-                allure.attach(
-                    str(e),
-                    name=f"Текст ошибки",
-                    attachment_type=allure.attachment_type.TEXT
-                )
-                raise
+            assert_text_equal(
+                good_order_text,
+                GOOD_ORDER_SUCCESS_TEXT.lower(),
+                "Заказ не оформляется"
+            )

@@ -10,7 +10,6 @@ def wait_for_element(driver, by, locator, timeout=15, condition="visible"):
             "present": EC.presence_of_element_located,
             "clickable": EC.element_to_be_clickable,
         }
-
         condition_func = condition_map.get(condition, EC.visibility_of_element_located)
         return wait.until(condition_func((by, locator)))
     except TimeoutException:

@@ -38,28 +38,23 @@ class TestNavigatePagesWithoutReloading:
             actual_cart = menu.get_cart_link_text().strip().lower()
             actual_logout = menu.get_logout_button_text().strip().lower()
 
+        with allure.step("Проверка наличия пунктов меню"):
             expected_shop = MENU_SHOP.lower()
             expected_cart = MENU_CART.lower()
             expected_logout = MENU_LOGOUT.lower()
-
-        with allure.step("Проверка наличия пунктов меню"):
             data = [
                 ("Корзинка", actual_cart, expected_cart),
                 ("Магазин", actual_shop, expected_shop),
                 ("Выход", actual_logout, expected_logout)
             ]
             for label, actual, expected in data:
-                with subtests.test(label=label):
-                    assert_text_equal(
-                        actual,
-                        expected,
-                        f"Пункт меню '{label}' не присутствует"
-                    )
-                    with allure.step(f"Пункт меню '{label}' присутствует"):
-                        pass
-
-        with allure.step("Завершение теста"):
-            pass
+                with allure.step(f"Проверка наличия '{label}' в меню"):
+                    with subtests.test(label=label):
+                        assert_text_equal(
+                            actual,
+                            expected,
+                            f"Пункт меню '{label}' не присутствует"
+                        )
 
     @allure.title("Переход в 'Корзинку' без перезагрузки страницы в "
                   "({browser_name})")
@@ -104,14 +99,18 @@ class TestNavigatePagesWithoutReloading:
                           attachment_type=allure.attachment_type.TEXT)
 
         with allure.step("Проверка отсутствия полной перезагрузки"):
-            assert after_load_time == initial_load_time, \
-                "Произошла полная перезагрузка страницы"
-
-        with allure.step("Завершение теста"):
-            allure.attach("Пункт меню 'Корзинка' открывает корзину без полной "
-                          "перезагрузки страницы",
-                          name="End test",
-                          attachment_type=allure.attachment_type.TEXT)
+            try:
+                assert after_load_time == initial_load_time, \
+                    "Произошла полная перезагрузка страницы"
+            except AssertionError as e:
+                # В случае несовпадения - логирование ошибки
+                allure.attach(
+                    str(e),
+                    name=f"Текст ошибки",
+                    attachment_type=allure.attachment_type.TEXT
+                )
+                # Принудительное падение теста
+                assert False, str(e)
 
     @allure.title("Переход в 'Магазин' без перезагрузки страницы в "
                   "({browser_name})")
@@ -156,14 +155,18 @@ class TestNavigatePagesWithoutReloading:
                           attachment_type=allure.attachment_type.TEXT)
 
         with allure.step("Проверка отсутствия полной перезагрузки"):
-            assert after_load_time == initial_load_time, \
-                "Произошла полная перезагрузка страницы"
-
-        with allure.step("Завершение теста"):
-            allure.attach("Пункт меню 'Магазин' открывает каталог без полной "
-                          "перезагрузки страницы",
-                          name="End test",
-                          attachment_type=allure.attachment_type.TEXT)
+            try:
+                assert after_load_time == initial_load_time, \
+                    "Произошла полная перезагрузка страницы"
+            except AssertionError as e:
+                # В случае несовпадения - логирование ошибки
+                allure.attach(
+                    str(e),
+                    name=f"Текст ошибки",
+                    attachment_type=allure.attachment_type.TEXT
+                )
+                # Принудительное падение теста
+                assert False, str(e)
 
     @allure.title("Переход на страницу авторизации без перезагрузки страницы"
                   " в ({browser_name})")
@@ -208,14 +211,18 @@ class TestNavigatePagesWithoutReloading:
                           attachment_type=allure.attachment_type.TEXT)
 
         with allure.step("Проверка отсутствия полной перезагрузки"):
-            assert after_load_time == initial_load_time, \
-                "Произошла полная перезагрузка страницы"
-
-        with allure.step("Завершение теста"):
-            allure.attach("Пункт меню 'Выход' переводит на страницу "
-                          "авторизации без полной перезагрузки страницы",
-                          name="End test",
-                          attachment_type=allure.attachment_type.TEXT)
+            try:
+                assert after_load_time == initial_load_time, \
+                    "Произошла полная перезагрузка страницы"
+            except AssertionError as e:
+                # В случае несовпадения - логирование ошибки
+                allure.attach(
+                    str(e),
+                    name=f"Текст ошибки",
+                    attachment_type=allure.attachment_type.TEXT
+                )
+                # Принудительное падение теста
+                assert False, str(e)
 
     @allure.title("Переход на страницу редактирования товаров без перезагрузки страницы"
                   " в ({browser_name})")
@@ -260,11 +267,15 @@ class TestNavigatePagesWithoutReloading:
                           attachment_type=allure.attachment_type.TEXT)
 
         with allure.step("Проверка отсутствия полной перезагрузки"):
-            assert after_load_time == initial_load_time, \
-                "Произошла полная перезагрузка страницы"
-
-        with allure.step("Завершение теста"):
-            allure.attach("Пункт меню 'Редактирование товаров' переводит на страницу "
-                          "редактирования без полной перезагрузки страницы",
-                          name="End test",
-                          attachment_type=allure.attachment_type.TEXT)
+            try:
+                assert after_load_time == initial_load_time, \
+                    "Произошла полная перезагрузка страницы"
+            except AssertionError as e:
+                # В случае несовпадения - логирование ошибки
+                allure.attach(
+                    str(e),
+                    name=f"Текст ошибки",
+                    attachment_type=allure.attachment_type.TEXT
+                )
+                # Принудительное падение теста
+                assert False, str(e)

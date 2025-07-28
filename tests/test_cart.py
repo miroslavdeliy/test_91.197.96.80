@@ -11,7 +11,6 @@ from pageobjects.shop_page import ShopPage
 
 
 class TestCart:
-
     @allure.title("Проверка отображения данных товара {browser_name}")
     @allure.description("Проверка, что в корзине товар отображается корректно:"
                         " название, количество, цена")
@@ -37,33 +36,39 @@ class TestCart:
             actual_quantity = int(cart.get_product_1_quantity())
             actual_price = cart.get_product_1_price().strip().lower()
 
+        with allure.step("Проверка полученных значений в карточке товара"):
             # Подготовка ожидаемых значений
             expected_name = PRODUCT_1_NAME.lower()
             expected_quantity = 1
             expected_price = PRODUCT_1_PRICE.lower()
 
-        with allure.step("Проверка полученных значений в карточке товара"):
             data = [
                 ("Название товара", actual_name, expected_name, assert_text_equal),
                 ("Количество товара", actual_quantity, expected_quantity, None),
                 ("Цена товара", actual_price, expected_price, assert_text_equal),
             ]
             for label, actual, expected, custom_assert in data:
-                with ((subtests.test(label=label))):
-                    if custom_assert:
-                        custom_assert(
-                            actual,
-                            expected,
-                            f"{label} некорректно отображается в корзине"
-                        )
-                    else:
-                        assert actual == expected, \
-                            f"{label}некорректно: {actual} ≠ {expected}"
-                    with allure.step(f"{label} в корзине отображается корректно"):
-                        pass
-
-        with allure.step("Завершение теста"):
-            pass
+                with allure.step(f"Проверка {label}"):
+                    with ((subtests.test(label=label))):
+                        if custom_assert:
+                            custom_assert(
+                                actual,
+                                expected,
+                                f"{label} некорректно отображается в корзине"
+                            )
+                        else:
+                            try:
+                                assert actual == expected, \
+                                    f"{label}некорректно: {actual} ≠ {expected}"
+                            except AssertionError as e:
+                                # В случае несовпадения - логирование ошибки
+                                allure.attach(
+                                    str(e),
+                                    name=f"Текст ошибки",
+                                    attachment_type=allure.attachment_type.TEXT
+                                )
+                                # Принудительное падение теста
+                                assert False, str(e)
 
     @allure.title("Проверка корректного пересчета итоговой цены в корзине в "
                   "{browser_name}")
@@ -118,11 +123,18 @@ class TestCart:
                           attachment_type=allure.attachment_type.TEXT)
 
         with allure.step("Проверка корректного пересчета итоговой цены"):
-            assert total_2 == price * quantuty_after_add, \
-                "Итоговая цена пересчитывается некорректно"
-
-        with allure.step("Завершение теста"):
-            pass
+            try:
+                assert total_2 == price * quantuty_after_add, \
+                    "Итоговая цена пересчитывается некорректно"
+            except AssertionError as e:
+                # В случае несовпадения - логирование ошибки
+                allure.attach(
+                    str(e),
+                    name=f"Текст ошибки",
+                    attachment_type=allure.attachment_type.TEXT
+                )
+                # Принудительное падение теста
+                assert False, str(e)
 
     @allure.title("Проверка корректной очистки корзины в {browser_name}")
     @allure.description("Проверка, что корзина корректно очищается и "
@@ -158,9 +170,6 @@ class TestCart:
                 "Корзина не очистилась!"
             )
 
-        with allure.step("Завершение теста"):
-            pass
-
     @allure.title("Проверка неактивности кнопки 'Оформить заказ' при пустой "
                   "корзине в {browser_name}")
     @allure.description("Проверка, что в пустой корзине кнопка 'Оформить заказ'"
@@ -187,11 +196,18 @@ class TestCart:
                     pass
             else:
                 is_enabled = cart.is_make_order_button_enabled()
-                assert not is_enabled, ("Кнопка 'Оформить заказ' активна при "
+                try:
+                    assert not is_enabled, ("Кнопка 'Оформить заказ' активна при "
                                         "пустой корзине")
-
-        with allure.step("Завершение теста"):
-            pass
+                except AssertionError as e:
+                    # В случае несовпадения - логирование ошибки
+                    allure.attach(
+                        str(e),
+                        name=f"Текст ошибки",
+                        attachment_type=allure.attachment_type.TEXT
+                    )
+                    # Принудительное падение теста
+                    assert False, str(e)
 
     @allure.title("Проверка активности кнопки 'Оформить заказ' при непустой "
                   "корзине в {browser_name}")
@@ -215,14 +231,31 @@ class TestCart:
 
         with allure.step("Проверка доступности кнопки 'Оформить заказ'"):
             is_visible = cart.is_make_order_button_visible()
-            assert is_visible, ("Кнопка 'Оформить заказ' не видима "
+            try:
+                assert is_visible, ("Кнопка 'Оформить заказ' не видима "
                                 "при непустой корзине")
+            except AssertionError as e:
+                # В случае несовпадения - логирование ошибки
+                allure.attach(
+                    str(e),
+                    name=f"Текст ошибки",
+                    attachment_type=allure.attachment_type.TEXT
+                )
+                # Принудительное падение теста
+                assert False, str(e)
             is_enabled = cart.is_make_order_button_enabled()
-            assert is_enabled, ("Кнопка 'Оформить заказ' неактивна "
+            try:
+                assert is_enabled, ("Кнопка 'Оформить заказ' неактивна "
                                 "при непустой корзине")
-
-        with allure.step("Завершение теста"):
-            pass
+            except AssertionError as e:
+                # В случае несовпадения - логирование ошибки
+                allure.attach(
+                    str(e),
+                    name=f"Текст ошибки",
+                    attachment_type=allure.attachment_type.TEXT
+                )
+                # Принудительное падение теста
+                assert False, str(e)
 
     @allure.title("Проверка работоспособности кнопки 'Оформить заказ' в"
                   " {browser_name}")
@@ -252,6 +285,3 @@ class TestCart:
                 MAKE_ORDER_HEADER_TEXT.lower(),
                 "Кнопка Оформить заказ не переводит на страницу заполнения данных"
             )
-
-        with allure.step("Завершение теста"):
-            pass

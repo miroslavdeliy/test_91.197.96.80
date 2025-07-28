@@ -1,10 +1,14 @@
+# Импорт библиотек
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
+
+# Импорт пользовательских библиотек
 from base.base_page import BasePage
 
 
 class MakeGoodPage(BasePage):
+    # Конструктор
     def __init__(self, driver):
+        # Вызов родительского конструктора
         super().__init__(driver)
 
         # Локаторы
@@ -16,13 +20,6 @@ class MakeGoodPage(BasePage):
         self.url = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[1]/div/form/div[1]/div[6]/input")
         self.make_good_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[2]/div/button")
 
-    def _scroll_and_click(self, locator):
-        element = self._get_element(locator, condition="present")
-        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
-        try:
-            ActionChains(self.driver).move_to_element(element).click().perform()
-        except Exception:
-            self.driver.execute_script("arguments[0].click();", element)
 
     def back_goods(self):
         self._scroll_and_click(self.back_to_goods_button)

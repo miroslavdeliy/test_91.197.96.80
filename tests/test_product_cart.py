@@ -24,9 +24,9 @@ class TestProductCart:
 
         with allure.step("Сохранение фактических значений карточки товара"):
             # Сохраняем фактические значения карточки товара
-            actual_name = shop.get_product_1_name().strip().lower()
-            actual_description = shop.get_product_1_description().strip().lower()
-            actual_price = shop.get_product_1_price().strip().lower()
+            actual_name = shop.get_product_1_name().lower()
+            actual_description = shop.get_product_1_description().lower()
+            actual_price = shop.get_product_1_price().lower()
 
             # Подготовка ожидаемых значений
             expected_name = PRODUCT_1_NAME.lower()
@@ -42,24 +42,31 @@ class TestProductCart:
                 ("Цена", actual_price, expected_price)
             ]
             for label, actual, expected in data:
-                with subtests.test(label=label):
-                    assert_text_equal(
-                        actual,
-                        expected,
-                        f"{label} товара некорректно"
-                    )
-                with allure.step(f"{label} товара отображается корректно"):
-                    pass
+                with allure.step(f"Проверка {label}"):
+                    with subtests.test(label=label):
+                        allure.attach(actual, name=f"Фактическое значение",
+                                        attachment_type=allure.attachment_type.TEXT)
+                        allure.attach(expected, name=f"Ожидаемое значение",
+                                        attachment_type=allure.attachment_type.TEXT)
+                        assert_text_equal(
+                            actual,
+                            expected,
+                            f"{label} товара некорректно"
+                        )
 
         # Проверяем картинку
         with allure.step("Проверка загрузки изображения"):
             image = shop.get_product_1_image()
-            assert image.get_attribute("src") != "", \
-                "Изображение товара не загружено (src-пустой)"
-
-        with allure.step("Завершение теста"):
-            pass
-
+            try:
+                assert image.get_attribute("src") != "", \
+                    "Изображение товара не загружено (src-пустой)"
+            except AssertionError as e:
+                allure.attach(
+                    str(e),
+                    name=f"Текст ошибки",
+                    attachment_type=allure.attachment_type.TEXT
+                )
+                assert False, str(e)
 
     @allure.title("Проверка изменения количества товара в {browser_name}")
     @allure.description("Проверка, что кнопки изменения количества "
@@ -94,10 +101,18 @@ class TestProductCart:
         # Проверка увеличения количества товара на 1 штуку
         with allure.step("Проверка увеличения количества товара на 1 штуку"):
             with subtests.test(label="Добавление товара"):
-                assert quantity_after_add == quantity_before_add + 1, \
-                    (f"Количество товара не увеличилось Было: "
-                     f"{quantity_before_add},"
-                    f" стало: {quantity_after_add}")
+                try:
+                    assert quantity_after_add == quantity_before_add + 1, \
+                        (f"Количество товара не увеличилось Было: "
+                        f"{quantity_before_add},"
+                        f" стало: {quantity_after_add}")
+                except AssertionError as e:
+                    allure.attach(
+                        str(e),
+                        name=f"Текст ошибки",
+                        attachment_type=allure.attachment_type.TEXT
+                    )
+                    assert False, str(e)
 
         # --- Подтест 2: Уменьшение количества товара ---
         with allure.step("Уменьшить количество товара на 1 шт"):
@@ -114,14 +129,18 @@ class TestProductCart:
         # Проверка уменьшения количества товара на 1 штуку
         with allure.step("Проверка уменьшения количества товара на 1 штуку"):
             with subtests.test(label="Удаление товара"):
-                assert quantity_after_remove == quantity_after_add - 1, \
-                    (f"Количество товара не уменьшилось."
-                     f" Было: {quantity_after_add},"
-                     f" стало: {quantity_after_remove}")
-
-        with allure.step("Завершение теста"):
-            pass
-
+                try:
+                    assert quantity_after_remove == quantity_after_add - 1, \
+                        (f"Количество товара не уменьшилось."
+                        f" Было: {quantity_after_add},"
+                        f" стало: {quantity_after_remove}")
+                except AssertionError as e:
+                    allure.attach(
+                        str(e),
+                        name=f"Текст ошибки",
+                        attachment_type=allure.attachment_type.TEXT
+                    )
+                    assert False, str(e)
 
     # Проверка видимости изменения количества товара в корзине
     @allure.title("Проверка видимости изменения количества товара "
@@ -161,10 +180,18 @@ class TestProductCart:
         with allure.step("Проверка увеличения количества "
                          "товара в корзине на 1 штуку"):
             with subtests.test(label="Добавление товара"):
-                assert quantity_after_add == quantity_before_add + 1, \
-                    (f"Количество товара не увеличилось Было: "
-                     f"{quantity_before_add},"
-                    f" стало: {quantity_after_add}")
+                try:
+                    assert quantity_after_add == quantity_before_add + 1, \
+                        (f"Количество товара не увеличилось Было: "
+                        f"{quantity_before_add},"
+                        f" стало: {quantity_after_add}")
+                except AssertionError as e:
+                    allure.attach(
+                        str(e),
+                        name=f"Текст ошибки",
+                        attachment_type=allure.attachment_type.TEXT
+                    )
+                    assert False, str(e)
 
         # --- Подтест 2: Уменьшение количества товара ---
         with allure.step("Уменьшить количество товара в корзине на 1 шт"):
@@ -183,10 +210,15 @@ class TestProductCart:
         with allure.step("Проверка уменьшения количества товара"
                          " в корзине на 1 штуку"):
             with subtests.test(label="Удаление товара"):
-                assert quantity_after_remove == quantity_after_add - 1, \
-                    (f"Количество товара не уменьшилось."
-                     f" Было: {quantity_after_add},"
-                     f" стало: {quantity_after_remove}")
-
-        with allure.step("Завершение теста"):
-            pass
+                try:
+                    assert quantity_after_remove == quantity_after_add - 1, \
+                        (f"Количество товара не уменьшилось."
+                        f" Было: {quantity_after_add},"
+                        f" стало: {quantity_after_remove}")
+                except AssertionError as e:
+                    allure.attach(
+                        str(e),
+                        name=f"Текст ошибки",
+                        attachment_type=allure.attachment_type.TEXT
+                    )
+                    assert False, str(e)
