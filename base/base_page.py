@@ -3,7 +3,7 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 
-
+# Импортирование пользовательских библиотек
 from helpers.wait_for_element import wait_for_element
 
 

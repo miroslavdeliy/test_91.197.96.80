@@ -103,6 +103,7 @@ class TestAdministrator:
             menu.open_menu()
             menu.open_edit()
 
+        # Тестирования создания товара
         with allure.step("Проверка создания товаров"):
             with allure.step("Клик по кнопке Добавить товар"):
                 edit.add_good()
@@ -126,12 +127,14 @@ class TestAdministrator:
                 actual_image_url_maked_good = edit.get_image_maked_good()
 
             with allure.step("Проверка полученных значений"):
+                # Подготовка ожидаемых значений
                 expected_name_maked_good = NEW_GOOD_NAME.lower()
                 expected_description_maked_good = NEW_GOOD_DESCRIPTION.lower()
                 expected_category_maked_good = (f"категория: {NEW_GOOD_CATEGORY}").lower()
                 expected_price_maked_good = (f"цена: {NEW_GOOD_PRICE}.00 ₽").lower()
                 expected_image_url_maked_good = NEW_GOOD_IMAGE_URL
 
+                # Подготовка проверок
                 data_maked_goods = [
                     ("Название", actual_name_maked_good, expected_name_maked_good),
                     ("Описание", actual_description_maked_good, expected_description_maked_good),
@@ -140,24 +143,29 @@ class TestAdministrator:
                     ("URL изображения", actual_image_url_maked_good, expected_image_url_maked_good),
                 ]
 
+                # Прогон по значениям и сравнение с ожидаемыми
                 for label, actual, expected in data_maked_goods:
                     with allure.step(f"Проверка {label}"):
                         with subtests.test(label=label):
+                            # Логирование ожидаемых и фактических значений
                             allure.attach(actual, name=f"Фактическое значение",
                                             attachment_type=allure.attachment_type.TEXT)
                             allure.attach(expected, name=f"Ожидаемое значение",
                                           attachment_type=allure.attachment_type.TEXT)
+
+                            # Сравнение текстовых значений
                             assert_text_equal(
                                 actual,
                                 expected,
                                 f"{label} товара некорректно"
                             )
-
+        # Тестирования редактирования товара
         with allure.step("Проверка редактирования товара"):
             with allure.step("Клик по кнопке Редактировать товар"):
                 edit.open_edit_product_5()
 
             with allure.step("Ввести новые значения"):
+                # Заполнение формы редактирования товара
                 edit_product.clear_and_enter_name(EDITED_GOOD_NAME)
                 edit_product.clear_and_enter_description(EDITED_GOOD_DESCRIPTION)
                 edit_product.clear_and_enter_category(EDITED_GOOD_CATEGORY)
@@ -191,19 +199,24 @@ class TestAdministrator:
                     ("URL изображения", actual_image_url_edidded_good, expected_image_url_edidded_good),
                 ]
 
+                # Прогон по значениям и сравнение с ожидаемыми
                 for label, actual, expected in data_edidded_good:
                     with allure.step(f"Проверка {label}"):
                         with subtests.test(label=label):
+                            # Логирование ожидаемых и фактических значений
                             allure.attach(actual, name=f"Фактическое значение",
                                         attachment_type=allure.attachment_type.TEXT)
                             allure.attach(expected, name=f"Ожидаемое значение",
                                         attachment_type=allure.attachment_type.TEXT)
+
+                            # Сравнение текстовых значений
                             assert_text_equal(
                                 actual,
                                 expected,
                                 f"{label} товара некорректно"
                             )
 
+        # Тестирования удаления товара
         with allure.step("Проверка удаления товара"):
             with allure.step("Сохранить название удаляемого товара"):
                 good_name = edit.get_name()
@@ -212,15 +225,18 @@ class TestAdministrator:
 
             with allure.step("Ожидание удаление товара"):
                 try:
+                    # Ожидание исчезновения товара
                     WebDriverWait(driver, 10).until(
                         EC.invisibility_of_element_located(
                             (By.XPATH, f'//div[contains(text(), "{good_name}")]'))
                     )
                 except TimeoutException:
+                    # В случае неудачи логировать ошибку
                     error_message = f"{good_name} не удалился"
                     allure.attach(
                         error_message,
                         name=f"Текст ошибки",
                         attachment_type=allure.attachment_type.TEXT
                     )
+                    # Принудительное падение теста
                     assert False, error_message

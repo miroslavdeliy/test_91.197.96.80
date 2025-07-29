@@ -1,0 +1,1 @@
+{"uuid": "730ba143-eea9-4b54-92d2-03bd5691e6da", "children": ["720ff2c2-3f00-4182-81f8-9e246ce84f1d"], "befores": [{"name": "admin_authorization", "status": "passed", "steps": [{"name": "Авторизация администратора", "status": "passed", "start": 1753729500284, "stop": 1753729501762}], "start": 1753729500283, "stop": 1753729501762}], "start": 1753729500283, "stop": 1753729502849}

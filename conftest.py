@@ -17,12 +17,13 @@ from constants import (BASE_URL, USER_LOGIN_1, USER_LOGIN_2, USER_LOGIN_3,
                        ADMIN_PASSWORD)
 from pageobjects.authorization_page import AuthorizationPage
 
-
+# Ловить падения тестов
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     outcome = yield
     result = outcome.get_result()
 
+    # Условие выполняемое при падении теста
     if result.when == "call" and result.failed:
         driver = item.funcargs.get("driver")
         if driver:
@@ -42,7 +43,7 @@ def pytest_runtest_makereport(item, call):
             except Exception as e:
                 print(f"Не удалось получить HTML: {e}")
 
-
+# Фикстура создания драйвера
 @pytest.fixture
 def driver(browser_name):
     if browser_name == "Google Chrome":
@@ -100,7 +101,7 @@ def admin_authorization(driver):
     with allure.step("Авторизация администратора"):
         auth_page.login(ADMIN_LOGIN, ADMIN_PASSWORD)
 
-
+# Мобильный режим
 @pytest.fixture
 def mobile_driver():
     chrome_options = ChromeOptions()
@@ -115,7 +116,7 @@ def mobile_driver():
     yield driver
     driver.quit()
 
-
+# Авторизация в мобильном режиме
 @pytest.fixture(scope="function")
 def user_authorization_mobile(mobile_driver):
     auth_page = AuthorizationPage(mobile_driver)

@@ -8,10 +8,10 @@ from pageobjects.menu_page import MenuPage
 class TestAdaptability:
 
     @allure.title("Проверка наличия пунктов меню в мобильном режиме")
-    @allure.description("Проверка, что в меню присутствует 'Магазин',"
-                        " 'Корзинка', 'Выход'")
+    @allure.description("Проверка, что в мобильном режиме в меню присутствует"
+                        " 'Магазин', 'Корзинка', 'Выход'")
     def test_mobile(self, subtests, mobile_driver, user_authorization_mobile):
-        with allure.step("Открытие страницы и иницилизация объектов"):
+        with allure.step("Открытие страницы и инициализация объектов"):
             menu_page = MenuPage(mobile_driver)
 
         with allure.step("Открыть меню"):
