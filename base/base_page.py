@@ -33,13 +33,8 @@ class BasePage:
         element.click()
 
     # Метод получения аттрибута элемента
-    def _get_attribute(self, locator, attr_name, condition="visible",
-                       timeout=None):
-        element = wait_for_element(
-            self.driver, *locator,
-            timeout=timeout or self.timeout,
-            condition=condition
-        )
+    def _get_attribute(self, locator, attr_name, condition="visible", timeout=None):
+        element = wait_for_element(self.driver, *locator, timeout=timeout or self.timeout, condition=condition)
         return element.get_attribute(attr_name)
 
     # Метод кастомного ожидания
@@ -63,11 +58,7 @@ class BasePage:
     # Метод получения элемента страницы
     def _get_element(self, locator, timeout=None, condition="visible"):
         by, value = locator
-        return wait_for_element(
-            self.driver, by, value,
-            timeout=timeout or self.timeout,
-            condition=condition
-        )
+        return wait_for_element(self.driver, by, value, timeout=timeout or self.timeout, condition=condition)
 
     # Метод скролла и нажатия на кнопку
     def _scroll_and_click(self, locator):

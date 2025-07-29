@@ -8,8 +8,7 @@ from pageobjects.menu_page import MenuPage
 class TestAdaptability:
 
     @allure.title("Проверка наличия пунктов меню в мобильном режиме")
-    @allure.description("Проверка, что в мобильном режиме в меню присутствует"
-                        " 'Магазин', 'Корзинка', 'Выход'")
+    @allure.description("Проверка, что в мобильном режиме в меню присутствует 'Магазин', 'Корзинка', 'Выход'")
     def test_mobile(self, subtests, mobile_driver, user_authorization_mobile):
         with allure.step("Открытие страницы и инициализация объектов"):
             menu_page = MenuPage(mobile_driver)
@@ -32,11 +31,6 @@ class TestAdaptability:
                     ("Выход", actual_logout, expected_logout)
                 ]
                 for label, actual, expected in data:
-                    with allure.step(f"Проверка наличия '{label}' "
-                                     f"в меню мобильного режима"):
+                    with allure.step(f"Проверка наличия '{label}' в меню мобильного режима"):
                         with subtests.test(label=label):
-                            assert_text_equal(
-                                actual,
-                                expected,
-                                f"Пункт меню '{label}' не присутствует"
-                            )
+                            assert_text_equal(actual, expected,f"Пункт меню '{label}' не присутствует")

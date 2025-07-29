@@ -13,16 +13,10 @@ from pageobjects.make_order_page import MakeOrderPage
 from pageobjects.shop_page import ShopPage
 
 class TestRegistrationAndCompletionOrder:
-    @allure.title("Проверка работоспособности кнопки 'Обратно к товарам' на"
-              " странице заполнения личных данных в {browser_name}")
-    @allure.description("Проверка, что кнопка 'Обратно к товарам' переводит на "
-                    "страницу каталога товаров со страницы заполнения личных данных")
-    @pytest.mark.parametrize("browser_name",
-                         ["Mozilla Firefox", "Google Chrome",
-                          "Microsoft Edge", "Yandex Browser"])
-    def test_button_back_to_shop_from_personal_page(self, driver,
-                                                    user_authorization,
-                                                    browser_name):
+    @allure.title("Проверка работоспособности кнопки 'Обратно к товарам' на странице заполнения личных данных в {browser_name}")
+    @allure.description("Проверка, что кнопка 'Обратно к товарам' переводит на страницу каталога товаров со страницы заполнения личных данных")
+    @pytest.mark.parametrize("browser_name", ["Mozilla Firefox", "Google Chrome", "Microsoft Edge", "Yandex Browser"])
+    def test_button_back_to_shop_from_personal_page(self, driver, user_authorization, browser_name):
         allure.dynamic.parameter("Браузер", browser_name)
         with allure.step("Открытие страницы и иницилизация объектов"):
             shop = ShopPage(driver)
@@ -40,22 +34,12 @@ class TestRegistrationAndCompletionOrder:
 
         with allure.step("Проверка нахождения в каталоге товаров"):
             catalog_text = shop.get_shop_title_text().lower()
-            assert_text_equal(
-                catalog_text,
-                SHOP_TITLE_TEXT.lower(),
-                "Кнопка Обратно в магазин не переводит на страницу каталога"
-            )
+            assert_text_equal(catalog_text, SHOP_TITLE_TEXT.lower(), "Кнопка Обратно в магазин не переводит на страницу каталога")
 
-    @allure.title("Проверка работоспособности кнопки 'Оформить заказ' после"
-              " заполнения личных данных в {browser_name}")
-    @allure.description("Проверка, что кнопка 'Оформить заказ' переводит на "
-                    "страницу подтверждения заказа со страницы заполнения "
-                        "личных данных")
-    @pytest.mark.parametrize("browser_name",
-                         ["Mozilla Firefox", "Google Chrome",
-                          "Microsoft Edge", "Yandex Browser"])
-    def test_make_order_button(self, driver, user_authorization,
-                                      browser_name):
+    @allure.title("Проверка работоспособности кнопки 'Оформить заказ' после заполнения личных данных в {browser_name}")
+    @allure.description("Проверка, что кнопка 'Оформить заказ' переводит на страницу подтверждения заказа со страницы заполнения личных данных")
+    @pytest.mark.parametrize("browser_name", ["Mozilla Firefox", "Google Chrome", "Microsoft Edge", "Yandex Browser"])
+    def test_make_order_button(self, driver, user_authorization, browser_name):
         with allure.step("Открытие страницы и иницилизация объектов"):
             shop = ShopPage(driver)
             cart = CartPage(driver)
@@ -78,25 +62,14 @@ class TestRegistrationAndCompletionOrder:
         with allure.step("Нажать кнопку 'Оформить заказ'"):
             make_order.open_finish_order()
 
-        with allure.step("Проверка нахождения на странице подтверждения "
-                         "заказа"):
+        with allure.step("Проверка нахождения на странице подтверждения заказа"):
             make_order_check = finish_order.get_finish_order_title().strip().lower()
-            assert_text_equal(
-                make_order_check,
-                FINISH_ORDER_HEADER_TEXT.lower(),
-                "Пользователь не попадает на страницу подтверждения заказа"
-            )
+            assert_text_equal(make_order_check, FINISH_ORDER_HEADER_TEXT.lower(), "Пользователь не попадает на страницу подтверждения заказа")
 
-    @allure.title("Проверка работоспособности кнопки 'Обратно в магазин' "
-                  "на странице подтверждения заказа {browser_name}")
-    @allure.description("Проверка, что кнопка 'Обратно в магазин' переводит на "
-                        "страницу каталога товаров со страницы подтверждения "
-                        "заказа")
-    @pytest.mark.parametrize("browser_name",
-                             ["Mozilla Firefox", "Google Chrome",
-                              "Microsoft Edge", "Yandex Browser"])
-    def test_back_to_shop_from_order(self, driver, user_authorization,
-                                     browser_name):
+    @allure.title("Проверка работоспособности кнопки 'Обратно в магазин' на странице подтверждения заказа {browser_name}")
+    @allure.description("Проверка, что кнопка 'Обратно в магазин' переводит на страницу каталога товаров со страницы подтверждения заказа")
+    @pytest.mark.parametrize("browser_name", ["Mozilla Firefox", "Google Chrome", "Microsoft Edge", "Yandex Browser"])
+    def test_back_to_shop_from_order(self, driver, user_authorization, browser_name):
         with allure.step("Открытие страницы и иницилизация объектов"):
             shop = ShopPage(driver)
             cart = CartPage(driver)
@@ -124,21 +97,12 @@ class TestRegistrationAndCompletionOrder:
 
         with allure.step("Проверка нахождения на странице каталога товаров"):
             catalog_text = shop.get_shop_title_text().lower()
-            assert_text_equal(
-                catalog_text,
-                SHOP_TITLE_TEXT.lower(),
-                "Кнопка Обратно в магазин не переводит на страницу каталога"
-            )
+            assert_text_equal(catalog_text, SHOP_TITLE_TEXT.lower(),"Кнопка Обратно в магазин не переводит на страницу каталога")
 
-    @allure.title("Проверка корректности данных на странице подтверждения заказа"
-                  " в {browser_name}")
-    @allure.description("Проверка, на странице подтверждения заказа данные "
-                        "товара и покупателя корректно отображаются")
-    @pytest.mark.parametrize("browser_name",
-                             ["Mozilla Firefox", "Google Chrome",
-                              "Microsoft Edge", "Yandex Browser"])
-    def test_correct_data_order_page(self, subtests,
-                                     driver, user_authorization, browser_name):
+    @allure.title("Проверка корректности данных на странице подтверждения заказа {browser_name}")
+    @allure.description("Проверка, на странице подтверждения заказа данные товара и покупателя корректно отображаются")
+    @pytest.mark.parametrize("browser_name", ["Mozilla Firefox", "Google Chrome", "Microsoft Edge", "Yandex Browser"])
+    def test_correct_data_order_page(self, subtests, driver, user_authorization, browser_name):
         with allure.step("Открытие страницы и иницилизация объектов"):
             shop = ShopPage(driver)
             cart = CartPage(driver)
@@ -185,57 +149,38 @@ class TestRegistrationAndCompletionOrder:
             expected_quantity_goods = f"количество товаров: {quantity_goods_in_cart}"
 
             data = [
-                ("Название товара", actual_name_product, expected_name_product,
-                 assert_text_equal),
+                ("Название товара", actual_name_product, expected_name_product, assert_text_equal),
                 ("Имя", actual_name, expected_name, assert_text_equal),
-                ("Фамилия", actual_first_name, expected_first_name,
-                 assert_text_equal),
-                ("Отчество", actual_finish_name, expected_finish_name,
-                 assert_text_equal),
-                ("Адрес доставки", actual_address, expected_address,
-                 assert_text_equal),
+                ("Фамилия", actual_first_name, expected_first_name, assert_text_equal),
+                ("Отчество", actual_finish_name, expected_finish_name, assert_text_equal),
+                ("Адрес доставки", actual_address, expected_address, assert_text_equal),
                 ("Номер карты", actual_card, expected_card, assert_text_equal),
-                ("Количество товаров", actual_quantity_goods,
-                 expected_quantity_goods, assert_text_equal),
+                ("Количество товаров", actual_quantity_goods, expected_quantity_goods, assert_text_equal),
             ]
 
             for label, actual, expected, custom_assert in data:
                 with allure.step(f"Проверка {label}"):
                     with subtests.test(label=label):
-                        allure.attach(actual, name=f"Фактическое значение",
-                                        attachment_type=allure.attachment_type.TEXT)
-                        allure.attach(expected, name=f"Ожидаемое значение",
-                                        attachment_type=allure.attachment_type.TEXT)
+                        allure.attach(actual, name=f"Фактическое значение", attachment_type=allure.attachment_type.TEXT)
+                        allure.attach(expected, name=f"Ожидаемое значение", attachment_type=allure.attachment_type.TEXT)
                         custom_assert(actual, expected, f"{label} некорректно отображается")
 
         with allure.step("Проверка итоговой суммы"):
             total_order = float(finish_order.get_finish_order_total().split()[-2])
             expected_total = float(total_in_cart.split()[-2])
             with subtests.test(label="Итоговая сумма"):
-                allure.attach(str(total_order), name=f"Фактическое значение",
-                              attachment_type=allure.attachment_type.TEXT)
-                allure.attach(str(expected_total), name=f"Ожидаемое значение",
-                              attachment_type=allure.attachment_type.TEXT)
+                allure.attach(str(total_order), name=f"Фактическое значение", attachment_type=allure.attachment_type.TEXT)
+                allure.attach(str(expected_total), name=f"Ожидаемое значение", attachment_type=allure.attachment_type.TEXT)
                 try:
-                    assert total_order == expected_total, \
-                        (f"Итоговая сумма некорректна: "
-                        f"{total_order} ≠ {expected_total}")
+                    assert total_order == expected_total, f"Итоговая сумма некорректна!"
                 except AssertionError as e:
-                    allure.attach(
-                        str(e),
-                        name=f"Текст ошибки",
-                        attachment_type=allure.attachment_type.TEXT
-                    )
+                    allure.attach(str(e), name=f"Текст ошибки", attachment_type=allure.attachment_type.TEXT)
                     assert False, str(e)
 
 
     @allure.title("Проверка успешного оформления заказа в {browser_name}")
-    @allure.description("Проверка, что после подтверждения заказа "
-                        "при нажатии на кнопку 'Завершить заказ' "
-                        "появляется сообщение об успешном совершении заказа")
-    @pytest.mark.parametrize("browser_name",
-                             ["Mozilla Firefox", "Google Chrome",
-                              "Microsoft Edge", "Yandex Browser"])
+    @allure.description("Проверка, что после подтверждения заказа при нажатии на кнопку 'Завершить заказ' появляется сообщение об успешном совершении заказа")
+    @pytest.mark.parametrize("browser_name", ["Mozilla Firefox", "Google Chrome", "Microsoft Edge", "Yandex Browser"])
     def test_good_make_order(self, driver, user_authorization, browser_name):
         with allure.step("Открытие страницы и иницилизация объектов"):
             shop = ShopPage(driver)
@@ -265,8 +210,4 @@ class TestRegistrationAndCompletionOrder:
 
         with allure.step("Проверка успешного оформления заказа"):
             good_order_text = good_order.get_good_order_page_title().strip().lower()
-            assert_text_equal(
-                good_order_text,
-                GOOD_ORDER_SUCCESS_TEXT.lower(),
-                "Заказ не оформляется"
-            )
+            assert_text_equal(good_order_text, GOOD_ORDER_SUCCESS_TEXT.lower(), "Заказ не оформляется")

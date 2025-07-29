@@ -19,15 +19,10 @@ from pageobjects.menu_page import MenuPage
 
 
 class TestAdministrator:
-    @allure.title("Проверка кнопки Обратно к товарам на странице создания"
-              " товаров в {browser_name}")
-    @allure.description("Проверка, что кнопка Обратно к товарам на странице "
-                    "создания товаров переводит на страницу со списком товаров")
-    @pytest.mark.parametrize("browser_name",
-                         ["Mozilla Firefox", "Google Chrome",
-                          "Microsoft Edge", "Yandex Browser"])
-    def test_button_back_from_make_good(self, driver, admin_authorization,
-                                        browser_name):
+    @allure.title("Проверка кнопки Обратно к товарам на странице создания товаров в {browser_name}")
+    @allure.description("Проверка, что кнопка Обратно к товарам на странице создания товаров переводит на страницу со списком товаров")
+    @pytest.mark.parametrize("browser_name", ["Mozilla Firefox", "Google Chrome", "Microsoft Edge", "Yandex Browser"])
+    def test_button_back_from_make_good(self, driver, admin_authorization, browser_name):
         with allure.step("Открытие страницы и иницилизация объектов"):
             menu = MenuPage(driver)
             edit = EditGoodsPage(driver)
@@ -46,21 +41,12 @@ class TestAdministrator:
         with allure.step("Проверка нахождения на странице редактирования товаров"):
             edit_header_text = edit.get_edit_header_text().lower()
             # Сравнение заголовка страницы редактирования товаров с ожидаемым
-            assert_text_equal(
-                edit_header_text,
-                EDIT_GOODS_HEADER_TEXT.lower(),
-                "Кнопка Обратно к товарам не переводит на страницу списка товаров"
-            )
+            assert_text_equal(edit_header_text, EDIT_GOODS_HEADER_TEXT.lower(),"Кнопка Обратно к товарам не переводит на страницу списка товаров")
 
-    @allure.title("Проверка кнопки Обратно к товарам на странице редактирования"
-              " товаров в {browser_name}")
-    @allure.description("Проверка, что кнопка Обратно к товарам на странице "
-                    "редактирования товаров переводит на страницу со списком товаров")
-    @pytest.mark.parametrize("browser_name",
-                         ["Mozilla Firefox", "Google Chrome",
-                          "Microsoft Edge", "Yandex Browser"])
-    def test_button_back_from_edit_good(self, driver, admin_authorization,
-                                        browser_name):
+    @allure.title("Проверка кнопки Обратно к товарам на странице редактирования товаров в {browser_name}")
+    @allure.description("Проверка, что кнопка Обратно к товарам на странице редактирования товаров переводит на страницу со списком товаров")
+    @pytest.mark.parametrize("browser_name", ["Mozilla Firefox", "Google Chrome", "Microsoft Edge", "Yandex Browser"])
+    def test_button_back_from_edit_good(self, driver, admin_authorization, browser_name):
         with allure.step("Открытие страницы и иницилизация объектов"):
             menu = MenuPage(driver)
             edit = EditGoodsPage(driver)
@@ -79,20 +65,13 @@ class TestAdministrator:
         with allure.step("Проверка нахождения на странице редактирования товаров"):
             edit_header_text = edit.get_edit_header_text().lower()
             # Сравнение заголовка страницы редактирования товаров с ожидаемым
-            assert_text_equal(
-                edit_header_text,
-                EDIT_GOODS_HEADER_TEXT.lower(),
-                "Кнопка Обратно к товарам не переводит на страницу списка товаров"
-            )
+            assert_text_equal(edit_header_text, EDIT_GOODS_HEADER_TEXT.lower(),"Кнопка Обратно к товарам не переводит на страницу списка товаров")
 
 
     @allure.title("Проверка создания, редактирования и удаления товара в {browser_name}")
     @allure.description("Проверка создания, редактирования и удаления товара")
-    @pytest.mark.parametrize("browser_name",
-                         ["Mozilla Firefox", "Google Chrome",
-                          "Microsoft Edge", "Yandex Browser"])
-    def test_make_edit_delete_good(self, subtests, driver,
-                        admin_authorization, browser_name):
+    @pytest.mark.parametrize("browser_name", ["Mozilla Firefox", "Google Chrome", "Microsoft Edge", "Yandex Browser"])
+    def test_make_edit_delete_good(self, subtests, driver, admin_authorization, browser_name):
         with allure.step("Открытие страницы и иницилизация объектов"):
             menu = MenuPage(driver)
             edit = EditGoodsPage(driver)
@@ -148,17 +127,12 @@ class TestAdministrator:
                     with allure.step(f"Проверка {label}"):
                         with subtests.test(label=label):
                             # Логирование ожидаемых и фактических значений
-                            allure.attach(actual, name=f"Фактическое значение",
-                                            attachment_type=allure.attachment_type.TEXT)
-                            allure.attach(expected, name=f"Ожидаемое значение",
-                                          attachment_type=allure.attachment_type.TEXT)
+                            allure.attach(actual, name=f"Фактическое значение", attachment_type=allure.attachment_type.TEXT)
+                            allure.attach(expected, name=f"Ожидаемое значение", attachment_type=allure.attachment_type.TEXT)
 
                             # Сравнение текстовых значений
-                            assert_text_equal(
-                                actual,
-                                expected,
-                                f"{label} товара некорректно"
-                            )
+                            assert_text_equal(actual, expected,f"{label} товара некорректно")
+
         # Тестирования редактирования товара
         with allure.step("Проверка редактирования товара"):
             with allure.step("Клик по кнопке Редактировать товар"):
@@ -204,17 +178,11 @@ class TestAdministrator:
                     with allure.step(f"Проверка {label}"):
                         with subtests.test(label=label):
                             # Логирование ожидаемых и фактических значений
-                            allure.attach(actual, name=f"Фактическое значение",
-                                        attachment_type=allure.attachment_type.TEXT)
-                            allure.attach(expected, name=f"Ожидаемое значение",
-                                        attachment_type=allure.attachment_type.TEXT)
+                            allure.attach(actual, name=f"Фактическое значение", attachment_type=allure.attachment_type.TEXT)
+                            allure.attach(expected, name=f"Ожидаемое значение", attachment_type=allure.attachment_type.TEXT)
 
                             # Сравнение текстовых значений
-                            assert_text_equal(
-                                actual,
-                                expected,
-                                f"{label} товара некорректно"
-                            )
+                            assert_text_equal(actual, expected,f"{label} товара некорректно")
 
         # Тестирования удаления товара
         with allure.step("Проверка удаления товара"):
@@ -226,17 +194,10 @@ class TestAdministrator:
             with allure.step("Ожидание удаление товара"):
                 try:
                     # Ожидание исчезновения товара
-                    WebDriverWait(driver, 10).until(
-                        EC.invisibility_of_element_located(
-                            (By.XPATH, f'//div[contains(text(), "{good_name}")]'))
-                    )
+                    WebDriverWait(driver, 10).until(EC.invisibility_of_element_located((By.XPATH, f'//div[contains(text(), "{good_name}")]')))
                 except TimeoutException:
                     # В случае неудачи логировать ошибку
                     error_message = f"{good_name} не удалился"
-                    allure.attach(
-                        error_message,
-                        name=f"Текст ошибки",
-                        attachment_type=allure.attachment_type.TEXT
-                    )
+                    allure.attach(error_message, name=f"Текст ошибки", attachment_type=allure.attachment_type.TEXT)
                     # Принудительное падение теста
                     assert False, error_message
