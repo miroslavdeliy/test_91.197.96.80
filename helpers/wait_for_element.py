@@ -2,7 +2,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
-def wait_for_element(driver, by, locator, timeout=15, condition="visible"):
+def wait_for_element(
+        driver,
+        by,
+        locator,
+        timeout=15,
+        condition="visible"
+):
     try:
         wait = WebDriverWait(driver, timeout)
         condition_map = {
