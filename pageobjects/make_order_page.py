@@ -12,15 +12,41 @@ class MakeOrderPage(BasePage):
         super().__init__(driver)
 
         # Локаторы
-        self.make_order_header = (By.XPATH, "//*[@id='app']/div/div/div[1]/nav/div/div[1]")
-        self.back_shop_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div/form/div[2]/a/button")
-        self.name = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div/form/div[1]/div[2]/input")
-        self.first_name = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div/form/div[1]/div[3]/input")
-        self.last_name = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div/form/div[1]/div[4]/input")
-        self.address = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div/form/div[1]/div[5]/input")
-        self.card_number = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div/form/div[1]/div[6]/input")
-        self.finish_order_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div/form/div[2]/button")
-        self.error_message = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div/form/div[1]/div[1]")
+        self.make_order_header = (
+            By.XPATH, "//*[@id='app']/div/div/div[1]/nav/div/div[1]"
+        )
+        self.back_shop_button = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div/form/div[2]/a/button"
+        )
+        self.name = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div/form/div[1]/div[2]/input"
+        )
+        self.first_name = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div/form/div[1]/div[3]/input"
+        )
+        self.last_name = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div/form/div[1]/div[4]/input"
+        )
+        self.address = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div/form/div[1]/div[5]/input"
+        )
+        self.card_number = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div/form/div[1]/div[6]/input"
+        )
+        self.finish_order_button = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div/form/div[2]/button"
+        )
+        self.error_message = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div/form/div[1]/div[1]"
+        )
 
     # Получить текст заголовка заполнения личных данных
     def get_make_order_header_text(self):

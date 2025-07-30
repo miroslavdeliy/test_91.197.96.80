@@ -13,10 +13,18 @@ class MenuPage(BasePage):
 
         # Локаторы
         self.menu_button = (By.XPATH, "//*[@id='app']/div/nav/div/button")
-        self.cart_link = (By.XPATH, "//*[@id='offcanvasNavbar']/div[2]/ul[3]/a")
-        self.shop_link = (By.XPATH, "//*[@id='offcanvasNavbar']/div[2]/ul[2]/a")
-        self.logout_button = (By.XPATH, "//*[@id='offcanvasNavbar']/div[2]/ul[4]/li/div")
-        self.edit_goods_link = (By.XPATH, "//*[@id='offcanvasNavbar']/div[2]/ul[1]/a")
+        self.cart_link = (
+            By.XPATH, "//*[@id='offcanvasNavbar']/div[2]/ul[3]/a"
+        )
+        self.shop_link = (
+            By.XPATH, "//*[@id='offcanvasNavbar']/div[2]/ul[2]/a"
+        )
+        self.logout_button = (
+            By.XPATH, "//*[@id='offcanvasNavbar']/div[2]/ul[4]/li/div"
+        )
+        self.edit_goods_link = (
+            By.XPATH, "//*[@id='offcanvasNavbar']/div[2]/ul[1]/a"
+        )
 
     # Открыть меню
     def open_menu(self):

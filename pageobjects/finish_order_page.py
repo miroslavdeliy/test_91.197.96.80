@@ -12,17 +12,42 @@ class FinishOrderPage(BasePage):
         super().__init__(driver)
 
         # Локаторы
-        self.finish_order_title = (By.XPATH, "//*[@id='app']/div/div/div[1]/nav/div/div[1]")
-        self.back_shop_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[11]/div/a[1]/button")
-        self.name_product = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[2]/div[2]/div[1]/div")
-        self.name = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[4]/div[1]")
-        self.first_name = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[4]/div[2]")
-        self.last_name = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[4]/div[3]")
-        self.address = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[6]/div[1]")
-        self.card_number = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[8]/div[2]")
-        self.quantity_goods = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[10]/div[1]")
-        self.total = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[10]/div[2]")
-        self.finish_order_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[11]/div/a[2]/button")
+        self.finish_order_title = (
+            By.XPATH, "//*[@id='app']/div/div/div[1]/nav/div/div[1]"
+        )
+        self.back_shop_button = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div[11]/div/a[1]/button"
+        )
+        self.name_product = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div[2]/div[2]/div[1]/div"
+        )
+        self.name = (
+            By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[4]/div[1]"
+        )
+        self.first_name = (
+            By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[4]/div[2]"
+        )
+        self.last_name = (
+            By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[4]/div[3]"
+        )
+        self.address = (
+            By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[6]/div[1]"
+        )
+        self.card_number = (
+            By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[8]/div[2]"
+        )
+        self.quantity_goods = (
+            By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[10]/div[1]"
+        )
+        self.total = (
+            By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[10]/div[2]"
+        )
+        self.finish_order_button = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div[11]/div/a[2]/button"
+        )
 
     # Получить заголовок страницы подтверждения заказа
     def get_finish_order_title(self):

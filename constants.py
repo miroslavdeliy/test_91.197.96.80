@@ -57,13 +57,17 @@ NEW_GOOD_NAME = "Ролл с говядиной"
 NEW_GOOD_DESCRIPTION = "Ролл с говядиной 225 г"
 NEW_GOOD_CATEGORY = "Ролл"
 NEW_GOOD_PRICE = "129"
-NEW_GOOD_IMAGE_URL = "https://user36270.clients-cdnnow.ru/1700813301636-350x253.jpeg"
+NEW_GOOD_IMAGE_URL = (
+    "https://user36270.clients-cdnnow.ru/1700813301636-350x253.jpeg"
+)
 
 EDITED_GOOD_NAME = "Наггетсы"
 EDITED_GOOD_DESCRIPTION = "Наггетсы из курицы 225 г"
 EDITED_GOOD_CATEGORY = "Наггетсы"
 EDITED_GOOD_PRICE = "139"
-EDITED_GOOD_IMAGE_URL = "https://sushinson.ru/assets/catalog-img/sandwich/ngetsi.jpg"
+EDITED_GOOD_IMAGE_URL = (
+    "https://sushinson.ru/assets/catalog-img/sandwich/ngetsi.jpg"
+)
 
 # --- Ограничения
 MAX_LOAD_TIME_MS = 3000

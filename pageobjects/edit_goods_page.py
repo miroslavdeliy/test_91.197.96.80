@@ -9,16 +9,43 @@ class EditGoodsPage(BasePage):
         super().__init__(driver)
 
         # Локаторы
-        self.edit_header = (By.XPATH, "//*[@id='app']/div/div/div[1]/nav/div/div[1]")
-        self.add_good_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/a/button")
-        self.name = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/div[2]/div[1]/div")
-        self.description = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/div[2]/div[1]/p")
-        self.category = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/div[2]/div[2]/div/div")
-        self.price = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/div[2]/div[3]/div/div")
-        self.image = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/div[1]/img")
-        self.edit_product_1_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[1]/div[3]/a/button/span")
-        self.edit_product_5_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/div[3]/a/button/span")
-        self.delete_product_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/div[4]/button/span")
+        self.edit_header = (
+            By.XPATH, "//*[@id='app']/div/div/div[1]/nav/div/div[1]"
+        )
+        self.add_good_button = (
+            By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/a/button"
+        )
+        self.name = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div[5]/div[2]/div[1]/div"
+        )
+        self.description = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div[5]/div[2]/div[1]/p"
+        )
+        self.category = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div[5]/div[2]/div[2]/div/div"
+        )
+        self.price = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div[5]/div[2]/div[3]/div/div"
+        )
+        self.image = (
+            By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[5]/div[1]/img"
+        )
+        self.edit_product_1_button = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div[1]/div[3]/a/button/span"
+        )
+        self.edit_product_5_button = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div[5]/div[3]/a/button/span"
+        )
+        self.delete_product_button = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div[5]/div[4]/button/span"
+        )
 
     # Получить текст заголовка страницы редактирования товаров
     def get_edit_header_text(self):

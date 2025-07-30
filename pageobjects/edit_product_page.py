@@ -11,13 +11,37 @@ class EditProductPage(BasePage):
         super().__init__(driver)
 
         # Локаторы
-        self.back_goods_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[2]/div/a/button")
-        self.name = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[1]/div/form/div[1]/div[2]/input")
-        self.description = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[1]/div/form/div[1]/div[3]/input")
-        self.category = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[1]/div/form/div[1]/div[4]/input")
-        self.price = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[1]/div/form/div[1]/div[6]/input")
-        self.url = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[1]/div/form/div[1]/div[7]/input")
-        self.edit_button = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[2]/div/button")
+        self.back_goods_button = (
+            By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[2]/div/a/button"
+        )
+        self.name = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div[1]/div/form/div[1]/div[2]/"
+            "input"
+        )
+        self.description = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div[1]/div/form/div[1]/div[3]/"
+            "input"
+        )
+        self.category = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div[1]/div/form/div[1]/div[4]/"
+            "input"
+        )
+        self.price = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div[1]/div/form/div[1]/div[6]/"
+            "input"
+        )
+        self.url = (
+            By.XPATH,
+            "//*[@id='app']/div/div/div[1]/div/div[1]/div/form/div[1]/div[7]/"
+            "input"
+        )
+        self.edit_button = (
+            By.XPATH, "//*[@id='app']/div/div/div[1]/div/div[2]/div/button"
+        )
 
     # Очистка поля и ввод нового значения
     def _clear_and_send_keys(self, locator, value):
@@ -31,7 +55,9 @@ class EditProductPage(BasePage):
     # Ожидание пока поле не заполнится данными
     def _wait_for_value_not_clear(self, element, timeout=5):
         from selenium.webdriver.support.ui import WebDriverWait
-        WebDriverWait(self.driver, timeout).until(lambda _: element.get_attribute("value") != "")
+        WebDriverWait(
+            self.driver, timeout
+        ).until(lambda _: element.get_attribute("value") != "")
 
     # Очистка и ввод нового названия товара
     def clear_and_enter_name(self, name):

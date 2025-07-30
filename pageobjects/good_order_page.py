@@ -10,7 +10,9 @@ class GoodOrderPage(BasePage):
     def __init__(self, driver):
         # Вызов родительского конструктора
         super().__init__(driver)
-        self.good_order_title = (By.XPATH, "//*[@id='app']/div/div/div[1]/div/div/div[2]")
+        self.good_order_title = (
+            By.XPATH, "//*[@id='app']/div/div/div[1]/div/div/div[2]"
+        )
 
     # Получение текста успешного завершения заказа
     def get_good_order_page_title(self):

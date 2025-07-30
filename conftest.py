@@ -11,10 +11,19 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from selenium.webdriver.firefox.service import Service as FirefoxService
 
 
-from constants import (BASE_URL, USER_LOGIN_1, USER_LOGIN_2, USER_LOGIN_3,
-                       USER_LOGIN_4, USER_PASSWORD_1, USER_PASSWORD_2,
-                       USER_PASSWORD_3, USER_PASSWORD_4, ADMIN_LOGIN,
-                       ADMIN_PASSWORD)
+from constants import (
+    BASE_URL,
+    USER_LOGIN_1,
+    USER_LOGIN_2,
+    USER_LOGIN_3,
+    USER_LOGIN_4,
+    USER_PASSWORD_1,
+    USER_PASSWORD_2,
+    USER_PASSWORD_3,
+    USER_PASSWORD_4,
+    ADMIN_LOGIN,
+    ADMIN_PASSWORD
+)
 from pageobjects.authorization_page import AuthorizationPage
 
 # Ловить падения тестов
@@ -29,13 +38,21 @@ def pytest_runtest_makereport(item, call):
         if driver:
             # Скриншот
             try:
-                allure.attach(driver.get_screenshot_as_png(), name="screenshot_on_failure", attachment_type=allure.attachment_type.PNG)
+                allure.attach(
+                    driver.get_screenshot_as_png(),
+                    name="screenshot_on_failure",
+                    attachment_type=allure.attachment_type.PNG
+                )
             except Exception as e:
                 print(f"Не удалось сделать скриншот: {e}")
 
             # HTML
             try:
-                allure.attach(driver.page_source, name="page_source", attachment_type=allure.attachment_type.HTML)
+                allure.attach(
+                    driver.page_source,
+                    name="page_source",
+                    attachment_type=allure.attachment_type.HTML
+                )
             except Exception as e:
                 print(f"Не удалось получить HTML: {e}")
 
@@ -58,10 +75,15 @@ def driver(browser_name):
         driver = webdriver.Edge(service=service, options=options)
 
     elif browser_name == "Yandex Browser":
-        driver_path = os.path.join(os.path.dirname(__file__), "yandexdriver.exe")
+        driver_path = os.path.join(
+            os.path.dirname(__file__), "yandexdriver.exe"
+        )
 
         # Путь к бинарнику Яндекс Браузера
-        binary_path = "C:/Users/miros/AppData/Local/Yandex/YandexBrowser/Application/browser.exe"
+        binary_path = (
+            "C:/Users/miros/AppData/Local/Yandex/YandexBrowser/Application/"
+            "browser.exe"
+        )
         options = ChromeOptions()
         options.binary_location = binary_path
 
@@ -101,7 +123,9 @@ def admin_authorization(driver):
 @pytest.fixture
 def mobile_driver():
     chrome_options = ChromeOptions()
-    chrome_options.add_experimental_option("mobileEmulation", {"deviceName": "iPhone X"})
+    chrome_options.add_experimental_option(
+        "mobileEmulation", {"deviceName": "iPhone X"}
+    )
     chrome_options.add_argument("--disable-notifications")
     chrome_options.add_argument("--disable-popup-blocking")
 
